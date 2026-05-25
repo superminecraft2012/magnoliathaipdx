@@ -15,10 +15,9 @@ const HOURS = [
 
 function isOpen(): { open: boolean; label: string } {
   const now = new Date()
-  const day = now.getDay() // 0=Sun,1=Mon,...,6=Sat
+  const day = now.getDay()
   const mins = now.getHours() * 60 + now.getMinutes()
 
-  // Mon–Thu: 11am–3pm & 4pm–9pm
   if (day >= 1 && day <= 4) {
     const lunch = mins >= 11 * 60 && mins < 15 * 60
     const dinner = mins >= 16 * 60 && mins < 21 * 60
@@ -28,7 +27,6 @@ function isOpen(): { open: boolean; label: string } {
     if (mins >= 15 * 60 && mins < 16 * 60) return { open: false, label: 'Reopens at 4:00 PM' }
     return { open: false, label: 'Closed · Opens tomorrow at 11:00 AM' }
   }
-  // Fri: 11am–3pm & 4pm–10pm
   if (day === 5) {
     const lunch = mins >= 11 * 60 && mins < 15 * 60
     const dinner = mins >= 16 * 60 && mins < 22 * 60
@@ -38,19 +36,23 @@ function isOpen(): { open: boolean; label: string } {
     if (mins >= 15 * 60 && mins < 16 * 60) return { open: false, label: 'Reopens at 4:00 PM' }
     return { open: false, label: 'Closed · Opens Saturday at 12:00 PM' }
   }
-  // Sat: 12pm–10pm
   if (day === 6) {
     const open = mins >= 12 * 60 && mins < 22 * 60
     return open
       ? { open: true, label: 'Open now · Closes at 10:00 PM' }
       : { open: false, label: mins < 12 * 60 ? 'Opens at 12:00 PM' : 'Closed · Opens Sunday at 12:00 PM' }
   }
-  // Sun: 12pm–9pm
   const open = mins >= 12 * 60 && mins < 21 * 60
   return open
     ? { open: true, label: 'Open now · Closes at 9:00 PM' }
     : { open: false, label: mins < 12 * 60 ? 'Opens at 12:00 PM' : 'Closed · Opens Monday at 11:00 AM' }
 }
+
+const ORDER_PLATFORMS = [
+  { name: 'UberEats', href: 'https://www.ubereats.com/store/magnolia-thai-restaurant/gHxL-23vRW2gkHHSCTKZEg', color: '#06C167' },
+  { name: 'DoorDash', href: 'https://www.doordash.com/store/magnolia-thai-restaurant-milwaukie-26242298/34149152/', color: '#FF3008' },
+  { name: 'Grubhub', href: 'https://www.grubhub.com/restaurant/magnolia-thai-restaurant-10574-se-32nd-ave-milwaukie/7313120', color: '#F63440' },
+]
 
 export default function LocationSection({ onTabChange }: Props) {
   const status = isOpen()
@@ -59,15 +61,10 @@ export default function LocationSection({ onTabChange }: Props) {
     <section
       className="flex flex-col lg:flex-row bg-bg-primary"
       style={{ minHeight: 'calc(100dvh - 73px)' }}
-      aria-label="Magnolia Thai Restaurant location, address, and opening hours"
+      aria-label="Magnolia Thai Restaurant contact, ordering, and location"
     >
 
-      {/* ── Map panel ─────────────────────────────────────────────────── */}
-      {/*
-        flex-shrink-0 + explicit h on mobile so the panel has a concrete height.
-        On desktop: flex-1 inside a flex container with minHeight → concrete height
-        → absolute inset-0 iframe fills it correctly.
-      */}
+      {/* ── Map panel ── */}
       <div className="relative h-[280px] flex-shrink-0 lg:h-auto lg:flex-1 border-b lg:border-b-0 lg:border-r border-gold-muted overflow-hidden">
         <iframe
           src="https://maps.google.com/maps?q=Magnolia+Thai+Restaurant+10574+SE+32nd+Ave+Milwaukie+OR+97222&output=embed"
@@ -91,7 +88,7 @@ export default function LocationSection({ onTabChange }: Props) {
         </a>
       </div>
 
-      {/* ── Info panel ────────────────────────────────────────────────── */}
+      {/* ── Info panel ── */}
       <div className="lg:flex-1 overflow-y-auto px-8 md:px-12 py-10 flex flex-col justify-center">
 
         {/* Live open/closed badge */}
@@ -108,8 +105,35 @@ export default function LocationSection({ onTabChange }: Props) {
           </span>
         </div>
 
-        <h1 className="section-heading text-3xl md:text-4xl mb-1">Find Us</h1>
+        <h1 className="section-heading text-3xl md:text-4xl mb-1">Contact</h1>
         <div className="gold-divider max-w-[120px] mt-3 mb-7" />
+
+        {/* Order Online */}
+        <div className="mb-8">
+          <p className="text-gold/40 text-[10px] uppercase tracking-[0.3em] font-sans mb-3">Order Online</p>
+          <p className="text-gold/55 text-sm font-sans mb-4">
+            Order delivery or pickup through your preferred platform
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {ORDER_PLATFORMS.map((platform) => (
+              <a
+                key={platform.name}
+                href={platform.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 bg-bg-secondary border border-gold-muted rounded-lg px-5 py-4 text-gold/80 font-sans font-semibold text-sm hover:border-gold/50 hover:text-gold-light transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/40"
+                aria-label={`Order from Magnolia Thai on ${platform.name}`}
+              >
+                <span
+                  className="inline-block w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ background: platform.color }}
+                  aria-hidden="true"
+                />
+                {platform.name}
+              </a>
+            ))}
+          </div>
+        </div>
 
         {/* Address */}
         <address className="not-italic mb-8">
@@ -123,7 +147,7 @@ export default function LocationSection({ onTabChange }: Props) {
 
         {/* Contact */}
         <div className="mb-8">
-          <p className="text-gold/40 text-[10px] uppercase tracking-[0.3em] font-sans mb-3">Contact</p>
+          <p className="text-gold/40 text-[10px] uppercase tracking-[0.3em] font-sans mb-3">Phone & Social</p>
           <div className="space-y-2">
             <a
               href="tel:+15036590149"
@@ -165,15 +189,6 @@ export default function LocationSection({ onTabChange }: Props) {
             ))}
           </div>
         </div>
-
-        {/* CTA */}
-        <button
-          onClick={() => onTabChange?.('reservations')}
-          className="btn-cta self-start"
-          aria-label="Book a table at Magnolia Thai Restaurant"
-        >
-          Book a Table
-        </button>
 
       </div>
     </section>

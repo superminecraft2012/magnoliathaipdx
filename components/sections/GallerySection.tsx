@@ -148,11 +148,11 @@ export default function GallerySection({ onTabChange }: Props) {
               </p>
             </div>
             <button
-              onClick={() => onTabChange?.('reservations')}
+              onClick={() => onTabChange?.('contact')}
               className="btn-cta text-[11px] px-6 py-3 self-start sm:self-auto"
-              aria-label="Book a table at Magnolia Thai Restaurant"
+              aria-label="Order online from Magnolia Thai Restaurant"
             >
-              Book a Table
+              Order Online
             </button>
           </div>
 

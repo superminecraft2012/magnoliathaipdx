@@ -4,12 +4,12 @@ import { useState, useEffect, useCallback } from 'react'
 import Header from './layout/Header'
 import HomeSection from './sections/HomeSection'
 import MenuSection from './sections/MenuSection'
-import ReservationsSection from './sections/ReservationsSection'
+// import ReservationsSection from './sections/ReservationsSection'
 import AboutSection from './sections/AboutSection'
 import LocationSection from './sections/LocationSection'
 import GallerySection from './sections/GallerySection'
 
-export type TabId = 'home' | 'menu' | 'reservations' | 'about' | 'location' | 'gallery'
+export type TabId = 'home' | 'menu' | 'about' | 'contact' | 'gallery'
 
 export interface Tab {
   id: TabId
@@ -20,18 +20,16 @@ export interface Tab {
 const TABS: Tab[] = [
   { id: 'home', label: 'Home', Component: HomeSection },
   { id: 'menu', label: 'Menu', Component: MenuSection },
-  { id: 'reservations', label: 'Reservations', Component: ReservationsSection },
   { id: 'about', label: 'About Us', Component: AboutSection },
-  { id: 'location', label: 'Location', Component: LocationSection },
+  { id: 'contact', label: 'Contact', Component: LocationSection },
   { id: 'gallery', label: 'Gallery', Component: GallerySection },
 ]
 
 const TAB_TITLES: Record<TabId, string> = {
   home: 'Magnolia Thai Restaurant | Authentic Thai Cuisine | Milwaukie, OR',
   menu: 'Menu | Magnolia Thai Restaurant',
-  reservations: 'Book a Table | Magnolia Thai Restaurant',
   about: 'Our Story | Magnolia Thai Restaurant',
-  location: 'Find Us | Magnolia Thai Restaurant',
+  contact: 'Contact & Order Online | Magnolia Thai Restaurant',
   gallery: 'Gallery | Magnolia Thai Restaurant',
 }
 

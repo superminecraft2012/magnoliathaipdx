@@ -10,7 +10,7 @@ interface HeaderProps {
   tabs: Tab[]
 }
 
-const NAV_TAB_IDS: TabId[] = ['menu', 'reservations', 'about', 'location', 'gallery']
+const NAV_TAB_IDS: TabId[] = ['menu', 'about', 'contact', 'gallery']
 
 export default function Header({ activeTab, onTabChange, tabs }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)

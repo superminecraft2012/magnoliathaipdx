@@ -171,8 +171,8 @@ export default function AboutSection({ onTabChange }: Props) {
             Ready to experience the heart of Bangkok?
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <button onClick={() => onTabChange?.('reservations')} className="btn-cta px-10 py-4">
-              Book a Table
+            <button onClick={() => onTabChange?.('contact')} className="btn-cta px-10 py-4">
+              Order Online
             </button>
             <button onClick={() => onTabChange?.('menu')} className="btn-ghost px-10 py-4">
               View Menu

@@ -80,7 +80,7 @@ export default function HomeSection({ onTabChange }: Props) {
 
           <div className="flex flex-wrap gap-5">
             <button
-              onClick={() => onTabChange?.('reservations')}
+              onClick={() => onTabChange?.('contact')}
               className="btn-cta text-[1rem] font-extrabold px-14 py-5"
               aria-label="Order delivery or pickup from Magnolia Thai Restaurant"
             >
@@ -160,7 +160,7 @@ export default function HomeSection({ onTabChange }: Props) {
                 Milwaukie, OR 97222
               </p>
               <button
-                onClick={() => onTabChange?.('location')}
+                onClick={() => onTabChange?.('contact')}
                 className="text-gold/45 text-[11px] uppercase tracking-wider hover:text-gold transition-colors font-sans"
                 aria-label="View location and directions to Magnolia Thai Restaurant"
               >
