@@ -15,7 +15,7 @@ interface Props {
 }
 
 type MenuMode = 'all-day' | 'lunch'
-type FilterId = 'all' | string
+type FilterId = string
 
 function SpiceDots({ level }: { level?: 1 | 2 | 3 }) {
   if (!level) return null
@@ -121,19 +121,15 @@ function MenuCard({ item, categoryName, imgSrc }: { item: MenuCategory['items'][
 
 export default function MenuSection({ onTabChange }: Props) {
   const [menuMode, setMenuMode] = useState<MenuMode>('all-day')
-  const [activeFilter, setActiveFilter] = useState<FilterId>('all')
+  const [activeFilter, setActiveFilter] = useState<FilterId>(() =>
+    ALLDAY_CATEGORIES[0]?.id ?? ''
+  )
 
   const categories = menuMode === 'lunch' ? LUNCH_CATEGORIES : ALLDAY_CATEGORIES
 
-  const filters: { id: FilterId; label: string }[] = [
-    { id: 'all', label: 'All' },
-    ...categories.map((c) => ({ id: c.id, label: c.name })),
-  ]
+  const filters: { id: FilterId; label: string }[] = categories.map((c) => ({ id: c.id, label: c.name }))
 
-  const visibleCategories =
-    activeFilter === 'all'
-      ? categories
-      : categories.filter((c) => c.id === activeFilter)
+  const visibleCategories = categories.filter((c) => c.id === activeFilter)
 
   return (
     <section className="min-h-full bg-bg-primary" aria-label="Magnolia Thai Restaurant menu">
@@ -159,7 +155,7 @@ export default function MenuSection({ onTabChange }: Props) {
           {/* Menu mode toggle */}
           <div className="flex gap-2 mt-4">
             <button
-              onClick={() => { setMenuMode('all-day'); setActiveFilter('all') }}
+              onClick={() => { setMenuMode('all-day'); setActiveFilter(ALLDAY_CATEGORIES[0].id) }}
               className={[
                 'px-4 py-2 text-[11px] uppercase tracking-[0.18em] font-sans border rounded-sm transition-all duration-200',
                 menuMode === 'all-day'
@@ -170,7 +166,7 @@ export default function MenuSection({ onTabChange }: Props) {
               All Day Menu
             </button>
             <button
-              onClick={() => { setMenuMode('lunch'); setActiveFilter('all') }}
+              onClick={() => { setMenuMode('lunch'); setActiveFilter(LUNCH_CATEGORIES[0].id) }}
               className={[
                 'px-4 py-2 text-[11px] uppercase tracking-[0.18em] font-sans border rounded-sm transition-all duration-200',
                 menuMode === 'lunch'
