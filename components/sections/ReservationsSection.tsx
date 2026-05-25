@@ -163,20 +163,10 @@ export default function ReservationsSection({ onTabChange }: Props) {
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          name="reservation"
-          method="POST"
-          data-netlify="true"
           noValidate
           aria-label="Reservation form"
           className="space-y-5"
         >
-          {/* Netlify honeypot */}
-          <input type="hidden" name="form-name" value="reservation" />
-          <p className="hidden">
-            <label>
-              Do not fill this out: <input name="bot-field" />
-            </label>
-          </p>
 
           {/* Name row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -247,7 +237,7 @@ export default function ReservationsSection({ onTabChange }: Props) {
                 autoComplete="tel"
                 value={form.phone}
                 onChange={handleChange}
-                placeholder="+44 7700 900000"
+                placeholder="(503) 555-0123"
                 className="form-input"
                 aria-required="true"
               />
