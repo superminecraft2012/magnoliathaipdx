@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg-primary text-gold font-sans;
+    /* Lock the body — tabs manage their own scroll */
+    overflow: hidden;
+    height: 100dvh;
+  }
+
+  /* Thin gold scrollbar inside tab panels */
+  .tab-scroll::-webkit-scrollbar {
+    width: 3px;
+  }
+  .tab-scroll::-webkit-scrollbar-track {
+    @apply bg-bg-primary;
+  }
+  .tab-scroll::-webkit-scrollbar-thumb {
+    background: rgba(212, 168, 87, 0.3);
+    border-radius: 999px;
+  }
+  .tab-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 168, 87, 0.7);
+  }
+}
+
+@layer components {
+  /* ── Dividers ── */
+  .gold-divider {
+    @apply w-full h-px;
+    background: rgba(212, 168, 87, 0.25);
+  }
+
+  /* ── Nav links that double as tab triggers ── */
+  .nav-link {
+    @apply relative pb-1 uppercase tracking-[0.18em] text-[13px]
+           font-sans font-normal text-gold transition-colors duration-200
+           hover:text-gold-light focus:outline-none
+           focus-visible:ring-1 focus-visible:ring-gold rounded-sm;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-px w-0 bg-gold-light
+           transition-all duration-300;
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-selected='true']::after {
+    @apply w-full;
+  }
+  .nav-link[aria-selected='true'] {
+    @apply text-gold-light;
+  }
+
+  /* ── Menu cards ── */
+  .menu-card {
+    @apply bg-bg-secondary border border-gold-muted rounded-lg overflow-hidden
+           transition-all duration-300
+           hover:border-gold/50 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/40;
+  }
+
+  /* ── Form inputs ── */
+  .form-input {
+    @apply w-full bg-bg-secondary border border-gold-muted text-gold-light
+           placeholder-gold/35 rounded px-4 py-3 text-sm
+           focus:outline-none focus:border-gold/70
+           transition-colors duration-200 font-sans;
+  }
+
+  /* ── Gallery items ── */
+  .gallery-item {
+    @apply relative overflow-hidden rounded-lg bg-bg-secondary
+           border border-gold-muted/40
+           transition-all duration-500
+           hover:border-gold/50 hover:shadow-xl hover:shadow-black/50
+           cursor-pointer;
+  }
+  .gallery-item:hover .gallery-overlay {
+    @apply opacity-100;
+  }
+  .gallery-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent
+           opacity-0 transition-opacity duration-300 flex items-end p-4;
+  }
+
+  /* ── Section headings ── */
+  .section-heading {
+    @apply font-display uppercase tracking-widest text-gold-light;
+  }
+
+  /* ── CTA button ── */
+  .btn-cta {
+    @apply inline-flex items-center justify-center
+           bg-gold-light text-bg-primary font-sans font-bold
+           uppercase tracking-[0.2em] text-sm
+           px-10 py-4
+           transition-colors duration-200 hover:bg-gold
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold;
+  }
+
+  /* ── Ghost button ── */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center
+           border border-gold-muted text-gold font-sans font-medium
+           uppercase tracking-[0.2em] text-sm
+           px-10 py-4
+           transition-all duration-200
+           hover:border-gold hover:text-gold-light
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-gold;
+  }
+
+  /* ── Tag pill ── */
+  .tag-pill {
+    @apply inline-block text-[10px] uppercase tracking-widest px-2 py-0.5
+           border border-gold-muted text-gold/60 rounded-full;
+  }
+
+  /* ── Spice indicator dots ── */
+  .spice-dot {
+    @apply inline-block w-2 h-2 rounded-full bg-red-600/80;
+  }
+}
