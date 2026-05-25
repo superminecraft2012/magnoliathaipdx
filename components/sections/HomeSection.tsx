@@ -99,7 +99,7 @@ export default function HomeSection({ onTabChange }: Props) {
         {/* Right — hero image */}
         <div className="hidden lg:block relative overflow-hidden">
           <Image
-            src="/images/padseehero3.png"
+            src="/images/padseehero4k.png"
             alt="Pad See Ew — Magnolia Thai signature wide rice noodles wok-charred with egg, Chinese broccoli, carrots, broccoli, and sweet dark soy sauce, served on a white plate at Magnolia Thai Restaurant London"
             fill
             className="object-contain object-center"
