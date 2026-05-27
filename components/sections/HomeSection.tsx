@@ -16,17 +16,17 @@ const SIGNATURES = [
   {
     label: 'Pad See Ew',
     img: '/images/food/PadSeeEw.webp',
-    alt: 'Pad See Ew — wide rice noodles wok-charred with egg, Chinese broccoli, carrots, and sweet dark soy sauce at Magnolia Thai London',
+    alt: 'Pad See Ew — wide rice noodles wok-charred with egg, broccoli, carrots, and sweet dark soy sauce at Magnolia Thai Milwaukie',
   },
   {
     label: 'Red Curry',
     img: '/images/food/ThaiRedCurry.webp',
-    alt: 'Thai Red Curry — Kaeng Daeng with coconut milk, bamboo shoots, Thai aubergine, kaffir lime leaves, and fresh basil at Magnolia Thai London',
+    alt: 'Thai Red Curry with coconut milk, bamboo shoots, bell peppers, kaffir lime leaves, and fresh basil at Magnolia Thai Milwaukie',
   },
   {
     label: 'Pineapple Rice',
     img: '/images/food/PineappleFriedRice.webp',
-    alt: 'Pineapple Fried Rice — Khao Pad Sapparot with cashews, vegetables, and jasmine rice served in a fresh pineapple half at Magnolia Thai London',
+    alt: 'Pineapple Fried Rice with cashew nuts, peas, carrots, tomatoes, and pineapple at Magnolia Thai Milwaukie',
   },
 ]
 
@@ -75,7 +75,7 @@ export default function HomeSection({ onTabChange }: Props) {
 
           <p className="text-gold/70 text-[1.35rem] md:text-[1.45rem] max-w-[520px] mb-10 font-sans font-normal leading-relaxed">
             Savor authentic Thai dishes, prepared with passion and the finest
-            ingredients — bringing the vibrant flavours of Bangkok to Milwaukie since 2010.
+            ingredients — bringing the vibrant flavors of Thailand to Milwaukie since 2010.
           </p>
 
           <div className="flex flex-wrap gap-5">
@@ -100,7 +100,7 @@ export default function HomeSection({ onTabChange }: Props) {
         <div className="hidden lg:block relative overflow-hidden">
           <Image
             src="/images/padseehero4k.png"
-            alt="Pad See Ew — Magnolia Thai signature wide rice noodles wok-charred with egg, Chinese broccoli, carrots, broccoli, and sweet dark soy sauce, served on a white plate at Magnolia Thai Restaurant London"
+            alt="Pad See Ew — Magnolia Thai signature wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce"
             fill
             className="object-contain object-center"
             priority
@@ -173,7 +173,7 @@ export default function HomeSection({ onTabChange }: Props) {
           <div className="px-5 py-5">
             <h2 className="font-display text-gold-light text-[19px] mb-3">Contact</h2>
             <div className="space-y-1.5">
-              <p className="text-gold/60 text-[11px] uppercase tracking-wider font-sans">Contact Liaison</p>
+              <p className="text-gold/60 text-[11px] uppercase tracking-wider font-sans">Get in Touch</p>
               <a
                 href="tel:+15036590149"
                 className="block text-gold/70 text-sm font-sans hover:text-gold transition-colors"

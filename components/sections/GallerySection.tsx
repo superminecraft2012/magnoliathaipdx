@@ -30,7 +30,7 @@ const GALLERY: GalleryItem[] = [
     span: 2,
     imgSrc: '/images/herosection.webp',
     seoAlt:
-      'Magnolia Thai Restaurant dining room — warm golden lighting, rattan pendant lamps, floral wall décor, and set tables in our London restaurant at 42 Laroon Street',
+      'Magnolia Thai Restaurant dining room — warm golden lighting and inviting atmosphere at our Milwaukie, Oregon location',
     caption: 'The Dining Room',
     aspect: 'aspect-[16/9]',
   },
@@ -40,7 +40,7 @@ const GALLERY: GalleryItem[] = [
     imgSrc: '/images/food/PadSeeEw.webp',
     lightBg: true,
     seoAlt:
-      'Pad See Ew — Magnolia Thai wide rice noodles wok-charred with egg, Chinese broccoli, carrots, and sweet dark soy sauce — a beloved Thai classic at our London restaurant',
+      'Pad See Ew — wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce at Magnolia Thai',
     caption: 'Pad See Ew',
     aspect: 'aspect-square',
   },
@@ -50,7 +50,7 @@ const GALLERY: GalleryItem[] = [
     imgSrc: '/images/food/ThaiRedCurry.webp',
     lightBg: true,
     seoAlt:
-      'Thai Red Curry — Magnolia Thai Kaeng Daeng with coconut milk, bamboo shoots, Thai aubergine, and kaffir lime leaves — fragrant and vibrant at our London restaurant',
+      'Thai Red Curry with coconut milk, bamboo shoots, bell peppers, and kaffir lime leaves at Magnolia Thai',
     caption: 'Thai Red Curry',
     aspect: 'aspect-square',
   },
@@ -59,7 +59,7 @@ const GALLERY: GalleryItem[] = [
     filter: 'restaurant',
     imgSrc: '/images/ourstoryhero.webp',
     seoAlt:
-      'Magnolia Thai Restaurant evening atmosphere — intimate dining setting with warm rattan lighting, fresh floral arrangements, and traditional Thai décor in London Mayfair',
+      'Magnolia Thai Restaurant evening atmosphere — intimate dining setting with warm lighting and traditional Thai decor in Milwaukie, Oregon',
     caption: 'Evening Atmosphere',
     aspect: 'aspect-[4/3]',
   },
@@ -79,7 +79,7 @@ const GALLERY: GalleryItem[] = [
     imgSrc: '/images/food/PineappleFriedRice.webp',
     lightBg: true,
     seoAlt:
-      'Pineapple Fried Rice — Magnolia Thai Khao Pad Sapparot with cashews, tomatoes, peas, egg, and fragrant jasmine rice served in a fresh pineapple half at our London restaurant',
+      'Pineapple Fried Rice with cashew nuts, peas, carrots, tomatoes, and pineapple at Magnolia Thai',
     caption: 'Pineapple Fried Rice',
     aspect: 'aspect-square',
   },
@@ -88,7 +88,7 @@ const GALLERY: GalleryItem[] = [
     filter: 'events',
     span: 2,
     seoAlt:
-      'Private dining event at Magnolia Thai Restaurant London — large group celebration table set for a Thai feast with gold tableware and floral centrepieces',
+      'Private dining at Magnolia Thai Restaurant — large group table set for a Thai feast',
     caption: 'Private Dining Events',
     aspect: 'aspect-[16/9]',
   },
@@ -96,7 +96,7 @@ const GALLERY: GalleryItem[] = [
     id: 'events-cooking',
     filter: 'events',
     seoAlt:
-      'Thai cooking class at Magnolia Thai Restaurant London — guests learning to make authentic Thai dishes from Head Chef Siriporn Nakamura',
+      'Cooking at Magnolia Thai Restaurant — authentic Thai dishes prepared fresh in our kitchen',
     caption: 'Cooking Classes',
     aspect: 'aspect-square',
   },
@@ -104,7 +104,7 @@ const GALLERY: GalleryItem[] = [
     id: 'spring-rolls',
     filter: 'food',
     seoAlt:
-      'Por Pia Tod — crispy Thai vegetable spring rolls with sweet chilli dipping sauce at Magnolia Thai Restaurant London, a favourite starter',
+      'Crispy spring rolls with sour orange dipping sauce at Magnolia Thai Restaurant',
     caption: 'Crispy Spring Rolls',
     aspect: 'aspect-[3/4]',
   },
