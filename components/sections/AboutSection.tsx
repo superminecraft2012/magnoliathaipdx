@@ -40,14 +40,14 @@ export default function AboutSection({ onTabChange }: Props) {
       className="min-h-full bg-bg-primary"
       aria-label="About Magnolia Thai Restaurant Milwaukie Oregon"
     >
-      <div className="max-w-5xl mx-auto px-6 py-10 md:py-14">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-14">
 
         {/* ── Story header ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
 
           {/* Story image */}
           <div
-            className="relative rounded-lg overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-96"
+            className="anim-scale-in relative rounded-lg overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-96"
           >
             <Image
               src="/images/ourstoryhero.webp"
@@ -60,11 +60,11 @@ export default function AboutSection({ onTabChange }: Props) {
 
           {/* Story copy */}
           <div>
-            <p className="text-gold/45 text-[11px] uppercase tracking-[0.3em] font-sans mb-4">
+            <p className="anim-fade-up delay-100 text-gold/45 text-[11px] uppercase tracking-[0.3em] font-sans mb-4">
               Est. 2010 · Milwaukie, Oregon
             </p>
-            <h1 className="section-heading text-3xl md:text-4xl mb-6">Our Story</h1>
-            <div className="space-y-4 text-gold/70 text-[15px] font-sans font-light leading-relaxed">
+            <h1 className="anim-fade-up delay-200 section-heading text-3xl md:text-4xl mb-6">Our Story</h1>
+            <div className="anim-fade-up delay-300 space-y-4 text-gold/70 text-[15px] font-sans font-light leading-relaxed">
               <p>
                 Magnolia Thai was born from a simple, heartfelt mission: to bring the true
                 flavors of Thailand to the Milwaukie community. Our kitchen is rooted in
@@ -80,8 +80,8 @@ export default function AboutSection({ onTabChange }: Props) {
                 Over fifteen years later, that promise remains the heart of everything we do.
               </p>
             </div>
-            <div className="gold-divider mt-6 mb-5" />
-            <blockquote className="italic text-gold/55 text-sm font-sans font-light border-l-2 border-gold-muted pl-4">
+            <div className="gold-divider mt-6 mb-5 anim-line delay-400" />
+            <blockquote className="anim-fade-up delay-500 italic text-gold/55 text-sm font-sans font-light border-l-2 border-gold-muted pl-4">
               &ldquo;We cook Thai food the way it should be — with tradition,
               fresh ingredients, and heart.&rdquo;
               <cite className="block text-gold/35 text-[11px] mt-1 not-italic uppercase tracking-wider">
@@ -94,14 +94,14 @@ export default function AboutSection({ onTabChange }: Props) {
         {/* ── Values ── */}
         <div className="mb-16">
           <div className="text-center mb-8">
-            <h2 className="section-heading text-2xl md:text-3xl">The Magnolia Promise</h2>
-            <div className="gold-divider mt-4 max-w-xs mx-auto" />
+            <h2 className="anim-fade-up section-heading text-2xl md:text-3xl">The Magnolia Promise</h2>
+            <div className="gold-divider mt-4 max-w-xs mx-auto anim-line delay-200" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 anim-stagger">
             {VALUES.map((v) => (
               <div
                 key={v.title}
-                className="bg-bg-secondary border border-gold-muted rounded-lg p-5 hover:border-gold/40 transition-colors duration-300"
+                className="bg-bg-secondary border border-gold-muted rounded-lg p-5 hover:border-gold/40 hover:-translate-y-1 transition-all duration-300"
                 aria-label={v.alt}
               >
                 <div className="text-gold text-2xl mb-3 font-display" aria-hidden="true">{v.icon}</div>
@@ -113,7 +113,7 @@ export default function AboutSection({ onTabChange }: Props) {
         </div>
 
         {/* ── CTA ── */}
-        <div className="text-center py-8 border-t border-gold-muted">
+        <div className="anim-fade-up delay-600 text-center py-8 border-t border-gold-muted">
           <p className="text-gold/55 text-sm font-sans mb-5">
             Ready to experience the flavors of Thailand?
           </p>

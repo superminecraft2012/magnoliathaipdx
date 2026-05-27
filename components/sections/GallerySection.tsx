@@ -103,10 +103,66 @@ const GALLERY: GalleryItem[] = [
   {
     id: 'spring-rolls',
     filter: 'food',
+    imgSrc: '/images/8.png',
     seoAlt:
-      'Crispy spring rolls with sour orange dipping sauce at Magnolia Thai Restaurant',
+      'Crispy spring rolls with peanut dipping sauce, garnished with orchid at Magnolia Thai Restaurant Milwaukie Oregon',
     caption: 'Crispy Spring Rolls',
     aspect: 'aspect-[3/4]',
+  },
+  {
+    id: 'pad-thai-gallery',
+    filter: 'food',
+    imgSrc: '/images/5.png',
+    seoAlt:
+      'Pad Thai — Bangkok-style stir-fried rice noodles with shrimp, egg, bean sprouts, lime, and roasted peanuts at Magnolia Thai Milwaukie',
+    caption: 'Pad Thai',
+    aspect: 'aspect-square',
+  },
+  {
+    id: 'panang-curry-gallery',
+    filter: 'food',
+    imgSrc: '/images/1.png',
+    seoAlt:
+      'Panang Curry with tender beef, green beans, and rich red curry sauce at Magnolia Thai Restaurant Milwaukie Oregon',
+    caption: 'Panang Curry',
+    aspect: 'aspect-[4/3]',
+  },
+  {
+    id: 'duck-curry-gallery',
+    filter: 'food',
+    imgSrc: '/images/2.png',
+    seoAlt:
+      'S5 Duck Curry — roasted duck in red curry with grapes, Thai basil, and coconut milk at Magnolia Thai Milwaukie',
+    caption: 'Duck Curry',
+    aspect: 'aspect-square',
+  },
+  {
+    id: 'drunken-noodles-gallery',
+    filter: 'food',
+    span: 2,
+    imgSrc: '/images/3.png',
+    seoAlt:
+      'Drunken Noodles (Pad Kee Mao) — wide flat rice noodles stir fried with shrimp, beef, bell peppers, and fresh basil at Magnolia Thai',
+    caption: 'Drunken Noodles',
+    aspect: 'aspect-[16/9]',
+  },
+  {
+    id: 'pot-stickers-gallery',
+    filter: 'food',
+    imgSrc: '/images/9.png',
+    seoAlt:
+      'Pan-fried pot stickers with savory dipping sauce at Magnolia Thai Restaurant Milwaukie Oregon',
+    caption: 'Pot Stickers',
+    aspect: 'aspect-square',
+  },
+  {
+    id: 'salmon-curry-gallery',
+    filter: 'food',
+    imgSrc: '/images/6.png',
+    seoAlt:
+      'S6 Salmon Pumpkin Curry — grilled salmon on pumpkin in Thai curry with broccoli and peas at Magnolia Thai Milwaukie',
+    caption: 'Salmon Pumpkin Curry',
+    aspect: 'aspect-[4/3]',
   },
 ]
 
@@ -139,11 +195,11 @@ export default function GallerySection({ onTabChange }: Props) {
     >
       {/* Header + filters */}
       <div className="sticky top-0 z-10 bg-bg-primary/95 backdrop-blur-sm border-b border-gold-muted">
-        <div className="px-6 md:px-12 py-5">
+        <div className="px-4 sm:px-6 md:px-12 py-4 sm:py-5">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
             <div>
-              <h1 className="section-heading text-2xl md:text-3xl">Gallery</h1>
-              <p className="text-gold/40 text-[11px] font-sans uppercase tracking-widest mt-1">
+              <h1 className="anim-slide-left section-heading text-2xl md:text-3xl">Gallery</h1>
+              <p className="anim-fade-up delay-100 text-gold/40 text-[11px] font-sans uppercase tracking-widest mt-1">
                 The sights of Magnolia Thai
               </p>
             </div>
@@ -180,8 +236,8 @@ export default function GallerySection({ onTabChange }: Props) {
       </div>
 
       {/* Masonry-style grid */}
-      <div className="px-6 md:px-12 py-8">
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-0">
+      <div className="px-4 sm:px-6 md:px-12 py-6 sm:py-8">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-0 anim-stagger">
           {visible.map((item, i) => (
             <div
               key={item.id}

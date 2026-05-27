@@ -10,13 +10,13 @@ interface Props {
 const SIGNATURES = [
   {
     label: 'Pad Thai',
-    img: null as string | null,
-    alt: 'Pad Thai — Magnolia Thai signature Bangkok-style stir-fried rice noodles with tiger prawns, organic egg, bean sprouts, and roasted peanuts',
+    img: '/images/5.png' as string | null,
+    alt: 'Pad Thai — Magnolia Thai signature Bangkok-style stir-fried rice noodles with egg, bean sprouts, and roasted peanuts',
   },
   {
     label: 'Pad See Ew',
     img: '/images/food/PadSeeEw.webp',
-    alt: 'Pad See Ew — wide rice noodles wok-charred with egg, broccoli, carrots, and sweet dark soy sauce at Magnolia Thai Milwaukie',
+    alt: 'Pad See Ew — wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce at Magnolia Thai Milwaukie',
   },
   {
     label: 'Red Curry',
@@ -32,21 +32,22 @@ const SIGNATURES = [
 
 const SOCIAL = [
   { label: 'Like Magnolia Thai Restaurant on Facebook', icon: 'f', href: 'https://www.facebook.com/Magnoliathaipdx/' },
-  { label: 'Follow Magnolia Thai Restaurant on Instagram for food photos', icon: '◎', href: 'https://www.instagram.com/magnoliathaipdx/' },
+  { label: 'Follow Magnolia Thai Restaurant on Instagram', icon: '◎', href: 'https://www.instagram.com/magnoliathaipdx/' },
   { label: 'Read Magnolia Thai Restaurant reviews on Yelp', icon: '★', href: 'https://www.yelp.com/biz/magnolia-thai-milwaukie' },
 ]
 
 export default function HomeSection({ onTabChange }: Props) {
   return (
     <section
-      className="flex flex-col min-h-[calc(100dvh-73px)]"
+      className="flex flex-col overflow-hidden"
+      style={{ height: 'calc(100dvh - 73px)' }}
       aria-label="Magnolia Thai Restaurant — Welcome"
     >
 
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-[58%_42%] relative overflow-hidden min-h-0">
+      <div className="flex-1 relative overflow-hidden min-h-0">
 
-        {/* Background watermark — logo as texture */}
+        {/* Background watermark (all sizes) */}
         <div
           className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none"
           aria-hidden="true"
@@ -62,62 +63,115 @@ export default function HomeSection({ onTabChange }: Props) {
           />
         </div>
 
-        {/* Left — copy */}
-        <div className="flex flex-col justify-center px-8 md:px-14 lg:px-16 py-12 lg:py-0 z-10 relative">
-          <p className="text-gold/55 text-[13px] uppercase tracking-[0.32em] mb-5 font-sans">
-            Authentic Thai Cuisine · Milwaukie, Oregon
-          </p>
+        {/* ── Mobile hero (< sm): food image top, copy bottom ── */}
+        <div className="sm:hidden absolute inset-0 z-10 flex flex-col">
 
-          <h1 className="font-display text-gold-light uppercase leading-[1.08] tracking-wide mb-6 font-bold">
-            <span className="block text-[clamp(2.6rem,4.6vw,5rem)]">The Heart of Bangkok,</span>
-            <span className="block text-[clamp(2.6rem,4.6vw,5rem)]">Crafted With Tradition.</span>
-          </h1>
+          {/* Top section: food image fills remaining space */}
+          <div className="relative flex-1 overflow-hidden">
+            <Image
+              src="/images/padseehero4k.png"
+              alt=""
+              fill
+              className="object-contain object-center"
+              priority
+              sizes="100vw"
+              aria-hidden="true"
+            />
+            {/* Fade edges into dark bg */}
+            <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-bg-primary to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-bg-primary to-transparent pointer-events-none" />
+          </div>
 
-          <p className="text-gold/70 text-[1.35rem] md:text-[1.45rem] max-w-[520px] mb-10 font-sans font-normal leading-relaxed">
-            Savor authentic Thai dishes, prepared with passion and the finest
-            ingredients — bringing the vibrant flavors of Thailand to Milwaukie since 2010.
-          </p>
-
-          <div className="flex flex-wrap gap-5">
-            <button
-              onClick={() => onTabChange?.('contact')}
-              className="btn-cta text-[1rem] font-extrabold px-14 py-5"
-              aria-label="Order delivery or pickup from Magnolia Thai Restaurant"
-            >
-              Order Online
-            </button>
-            <button
-              onClick={() => onTabChange?.('menu')}
-              className="btn-ghost text-[1rem] font-extrabold px-14 py-5"
-              aria-label="View Magnolia Thai Restaurant's full menu"
-            >
-              View Menu
-            </button>
+          {/* Bottom section: copy + buttons */}
+          <div className="flex-shrink-0 px-6 pt-0 pb-5">
+            <p className="anim-fade-up delay-0 text-gold/50 text-[9px] uppercase tracking-[0.3em] mb-2 font-sans">
+              Authentic Thai · Milwaukie, OR
+            </p>
+            <h1 className="anim-fade-up delay-100 font-display text-gold-light uppercase leading-[1.08] tracking-wide mb-4 font-bold text-[1.9rem]">
+              <span className="block">The Heart of Bangkok,</span>
+              <span className="block">Crafted With Tradition.</span>
+            </h1>
+            <div className="anim-fade-up delay-300 flex flex-row gap-2.5">
+              <button
+                onClick={() => onTabChange?.('contact')}
+                className="btn-cta text-[0.65rem] font-extrabold px-4 py-3 flex-1"
+                aria-label="Order delivery or pickup from Magnolia Thai Restaurant"
+              >
+                Order Online
+              </button>
+              <button
+                onClick={() => onTabChange?.('menu')}
+                className="btn-ghost text-[0.65rem] font-extrabold px-4 py-3 flex-1"
+                aria-label="View Magnolia Thai Restaurant's full menu"
+              >
+                View Menu
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Right — hero image */}
-        <div className="hidden lg:block relative overflow-hidden">
-          <Image
-            src="/images/padseehero4k.png"
-            alt="Pad See Ew — Magnolia Thai signature wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce"
-            fill
-            className="object-contain object-center"
-            priority
-            sizes="42vw"
-          />
+        {/* ── Desktop hero (sm+): side-by-side grid ── */}
+        <div className="hidden sm:grid sm:grid-cols-[58%_42%] lg:grid-cols-[58%_42%] absolute inset-0 z-10">
+
+          {/* Left — copy */}
+          <div className="flex flex-col justify-center px-10 md:px-14 lg:px-16">
+            <p className="anim-fade-up delay-0 text-gold/55 text-[13px] uppercase tracking-[0.32em] mb-4 font-sans">
+              Authentic Thai · Milwaukie, OR
+            </p>
+            <h1 className="anim-fade-up delay-100 font-display text-gold-light uppercase leading-[1.08] tracking-wide mb-5 font-bold">
+              <span className="block text-[clamp(1.25rem,4.5vw,5rem)]">The Heart</span>
+              <span className="block text-[clamp(1.25rem,4.5vw,5rem)]">of Bangkok,</span>
+              <span className="block text-[clamp(1.25rem,4.5vw,5rem)]">Crafted With</span>
+              <span className="block text-[clamp(1.25rem,4.5vw,5rem)]">Tradition.</span>
+            </h1>
+            <p className="anim-fade-up delay-200 text-gold/70 text-base md:text-[1.2rem] max-w-[520px] mb-8 font-sans font-normal leading-relaxed">
+              Savor authentic Thai dishes, prepared with passion and the finest
+              ingredients — bringing the vibrant flavors of Thailand to Milwaukie since 2010.
+            </p>
+            <div className="anim-fade-up delay-300 flex gap-5">
+              <button
+                onClick={() => onTabChange?.('contact')}
+                className="btn-cta text-[1rem] font-extrabold px-14 py-5"
+                aria-label="Order delivery or pickup from Magnolia Thai Restaurant"
+              >
+                Order Online
+              </button>
+              <button
+                onClick={() => onTabChange?.('menu')}
+                className="btn-ghost text-[1rem] font-extrabold px-14 py-5"
+                aria-label="View Magnolia Thai Restaurant's full menu"
+              >
+                View Menu
+              </button>
+            </div>
+          </div>
+
+          {/* Right — hero image */}
+          <div className="relative h-full overflow-hidden anim-slide-right delay-200">
+            <Image
+              src="/images/padseehero4k.png"
+              alt="Pad See Ew — Magnolia Thai signature wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce"
+              fill
+              className="object-contain object-center"
+              priority
+              sizes="(max-width:1024px) 42vw, 42vw"
+            />
+          </div>
         </div>
       </div>
 
-      {/* ── Info grid ─────────────────────────────────────────── */}
-      <div className="border-t border-gold-muted flex-shrink-0">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gold-muted">
+      {/* ── Info strip — horizontal scroll on mobile ───────────── */}
+      <div className="border-t border-gold-muted flex-shrink-0 overflow-x-auto scrollbar-none">
+        <div
+          className="flex lg:grid lg:grid-cols-4 divide-x divide-gold-muted anim-stagger"
+          style={{ minWidth: 'max-content' }}
+        >
 
           {/* Our Signatures */}
-          <div className="px-5 py-5">
-            <h2 className="font-display text-gold-light text-[19px] mb-3">Our Signatures</h2>
+          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[160px] lg:min-w-0">
+            <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Signatures</h2>
             <div
-              className="flex gap-2 flex-wrap"
+              className="flex gap-1 sm:gap-2"
               role="list"
               aria-label="Magnolia Thai signature dishes"
             >
@@ -126,7 +180,7 @@ export default function HomeSection({ onTabChange }: Props) {
                   key={dish.label}
                   role="listitem"
                   onClick={() => onTabChange?.('menu')}
-                  className={`relative w-[62px] h-[62px] rounded-md overflow-hidden flex-shrink-0 ${dish.img ? 'bg-bg-secondary' : 'bg-bg-secondary'} border border-gold-muted hover:border-gold/50 transition-all duration-200 hover:scale-105 group`}
+                  className="relative w-[38px] h-[38px] sm:w-[62px] sm:h-[62px] rounded-md overflow-hidden flex-shrink-0 bg-bg-secondary border border-gold-muted hover:border-gold/50 transition-all duration-200 hover:scale-105 group"
                   title={dish.alt}
                   aria-label={`${dish.label} — view on menu`}
                 >
@@ -139,12 +193,6 @@ export default function HomeSection({ onTabChange }: Props) {
                       aria-hidden="true"
                     />
                   )}
-                  <span className="absolute inset-0 flex items-end p-1">
-                    <span className="text-[7px] text-gold/45 uppercase tracking-wider leading-tight group-hover:text-gold/70 transition-colors font-sans">
-                      {dish.label}
-                    </span>
-                  </span>
-                  {/* Hidden span for screen readers / SEO crawlers */}
                   <span className="sr-only">{dish.alt}</span>
                 </button>
               ))}
@@ -152,16 +200,16 @@ export default function HomeSection({ onTabChange }: Props) {
           </div>
 
           {/* Visit Us */}
-          <div className="px-5 py-5">
-            <h2 className="font-display text-gold-light text-[19px] mb-3">Visit Us</h2>
-            <address className="not-italic space-y-1.5">
-              <p className="text-gold/70 text-sm font-sans leading-relaxed">
+          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[150px] lg:min-w-0">
+            <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Visit Us</h2>
+            <address className="not-italic space-y-1">
+              <p className="text-gold/70 text-xs sm:text-sm font-sans leading-relaxed">
                 10574 SE 32nd Ave<br />
                 Milwaukie, OR 97222
               </p>
               <button
                 onClick={() => onTabChange?.('contact')}
-                className="text-gold/45 text-[11px] uppercase tracking-wider hover:text-gold transition-colors font-sans"
+                className="text-gold/45 text-[10px] sm:text-[11px] uppercase tracking-wider hover:text-gold transition-colors font-sans"
                 aria-label="View location and directions to Magnolia Thai Restaurant"
               >
                 Get directions →
@@ -170,13 +218,12 @@ export default function HomeSection({ onTabChange }: Props) {
           </div>
 
           {/* Contact */}
-          <div className="px-5 py-5">
-            <h2 className="font-display text-gold-light text-[19px] mb-3">Contact</h2>
-            <div className="space-y-1.5">
-              <p className="text-gold/60 text-[11px] uppercase tracking-wider font-sans">Get in Touch</p>
+          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[160px] lg:min-w-0">
+            <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Contact</h2>
+            <div className="space-y-1">
               <a
                 href="tel:+15036590149"
-                className="block text-gold/70 text-sm font-sans hover:text-gold transition-colors"
+                className="block text-gold/70 text-xs sm:text-sm font-sans hover:text-gold transition-colors"
                 aria-label="Call Magnolia Thai Restaurant on (503) 659-0149"
               >
                 (503) 659-0149
@@ -185,21 +232,18 @@ export default function HomeSection({ onTabChange }: Props) {
                 href="https://www.facebook.com/Magnoliathaipdx/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-gold/70 text-sm font-sans hover:text-gold transition-colors truncate"
+                className="block text-gold/70 text-xs sm:text-sm font-sans hover:text-gold transition-colors"
                 aria-label="Visit Magnolia Thai Restaurant on Facebook"
               >
-                facebook.com/Magnoliathaipdx
+                /Magnoliathaipdx
               </a>
             </div>
           </div>
 
           {/* Social */}
-          <div className="px-5 py-5">
-            <h2 className="font-display text-gold-light text-[19px] mb-2">Social</h2>
-            <p className="text-gold/45 text-[11px] font-sans mb-3 uppercase tracking-wider">
-              Follow our journey
-            </p>
-            <div className="flex gap-2.5">
+          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[130px] lg:min-w-0">
+            <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Social</h2>
+            <div className="flex gap-2">
               {SOCIAL.map((s) => (
                 <a
                   key={s.label}
@@ -207,7 +251,7 @@ export default function HomeSection({ onTabChange }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="w-8 h-8 rounded-full border border-gold-muted flex items-center justify-center text-gold text-xs hover:bg-gold hover:text-bg-primary hover:border-gold transition-all duration-200"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gold-muted flex items-center justify-center text-gold text-xs hover:bg-gold hover:text-bg-primary hover:border-gold transition-all duration-200"
                 >
                   <span aria-hidden="true">{s.icon}</span>
                 </a>

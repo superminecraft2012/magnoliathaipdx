@@ -65,7 +65,7 @@ export default function LocationSection({ onTabChange }: Props) {
     >
 
       {/* ── Map panel ── */}
-      <div className="relative h-[280px] flex-shrink-0 lg:h-auto lg:flex-1 border-b lg:border-b-0 lg:border-r border-gold-muted overflow-hidden">
+      <div className="anim-fade-in relative h-[280px] flex-shrink-0 lg:h-auto lg:flex-1 border-b lg:border-b-0 lg:border-r border-gold-muted overflow-hidden">
         <iframe
           src="https://maps.google.com/maps?q=Magnolia+Thai+Restaurant+10574+SE+32nd+Ave+Milwaukie+OR+97222&output=embed"
           className="absolute inset-0 w-full h-full"
@@ -89,7 +89,7 @@ export default function LocationSection({ onTabChange }: Props) {
       </div>
 
       {/* ── Info panel ── */}
-      <div className="lg:flex-1 overflow-y-auto px-8 md:px-12 py-10 flex flex-col justify-center">
+      <div className="lg:flex-1 overflow-y-auto px-5 sm:px-8 md:px-12 py-8 sm:py-10 flex flex-col justify-center anim-fade-up">
 
         {/* Live open/closed badge */}
         <div className="flex items-center gap-2 mb-6">
@@ -105,8 +105,8 @@ export default function LocationSection({ onTabChange }: Props) {
           </span>
         </div>
 
-        <h1 className="section-heading text-3xl md:text-4xl mb-1">Contact</h1>
-        <div className="gold-divider max-w-[120px] mt-3 mb-7" />
+        <h1 className="anim-fade-up delay-100 section-heading text-3xl md:text-4xl mb-1">Contact</h1>
+        <div className="gold-divider max-w-[120px] mt-3 mb-7 anim-line delay-200" />
 
         {/* Order Online */}
         <div className="mb-8">
@@ -114,7 +114,7 @@ export default function LocationSection({ onTabChange }: Props) {
           <p className="text-gold/55 text-sm font-sans mb-4">
             Order delivery or pickup through your preferred platform
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 anim-stagger">
             {ORDER_PLATFORMS.map((platform) => (
               <a
                 key={platform.name}
