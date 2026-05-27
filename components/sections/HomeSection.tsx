@@ -49,7 +49,7 @@ export default function HomeSection({ onTabChange }: Props) {
 
         {/* Background watermark (all sizes) */}
         <div
-          className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none"
+          className="absolute inset-0 z-[1] hidden sm:flex items-center justify-center pointer-events-none select-none"
           aria-hidden="true"
         >
           <Image
@@ -148,7 +148,7 @@ export default function HomeSection({ onTabChange }: Props) {
           </div>
 
           {/* Right — hero image */}
-          <div className="relative h-full overflow-hidden anim-slide-right delay-200 bg-black">
+          <div className="relative h-full overflow-hidden anim-slide-right delay-200">
             <Image
               src="/images/padseehero4k.png"
               alt="Pad See Ew — Magnolia Thai signature wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce"
