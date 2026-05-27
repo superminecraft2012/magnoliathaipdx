@@ -66,21 +66,22 @@ export default function HomeSection({ onTabChange }: Props) {
         {/* ── Mobile hero (< sm): full-bleed food photo, text over it ── */}
         <div className="sm:hidden absolute inset-0 z-10">
 
-          {/* Background: pad see ew as full-bleed texture */}
-          <Image
-            src="/images/padseehero4k.png"
-            alt=""
-            fill
-            className="object-cover object-center"
-            priority
-            sizes="100vw"
-            aria-hidden="true"
-          />
+          {/* Background: pad see ew — scaled down, centred in upper half, faded */}
+          <div className="absolute inset-x-0 top-0 h-[62%] pointer-events-none">
+            <Image
+              src="/images/padseehero4k.png"
+              alt=""
+              fill
+              className="object-contain object-center opacity-40"
+              priority
+              sizes="100vw"
+              aria-hidden="true"
+            />
+          </div>
 
-          {/* Fade top transparent corners into page bg */}
-          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-bg-primary to-transparent pointer-events-none" />
-          {/* Dark gradient so text stays readable */}
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-transparent pointer-events-none" />
+          {/* Fade all edges into page bg */}
+          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-bg-primary to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/70 to-transparent pointer-events-none" />
 
           {/* Copy + buttons — pinned to bottom */}
           <div className="absolute inset-x-0 bottom-0 px-6 pb-5">
