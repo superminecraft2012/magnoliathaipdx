@@ -63,27 +63,25 @@ export default function HomeSection({ onTabChange }: Props) {
           />
         </div>
 
-        {/* ── Mobile hero (< sm): food image top, copy bottom ── */}
-        <div className="sm:hidden absolute inset-0 z-10 flex flex-col">
+        {/* ── Mobile hero (< sm): full-bleed food photo, text over it ── */}
+        <div className="sm:hidden absolute inset-0 z-10 bg-black">
 
-          {/* Top section: food image fills remaining space */}
-          <div className="relative flex-1 overflow-hidden">
-            <Image
-              src="/images/padseehero4k.png"
-              alt=""
-              fill
-              className="object-contain object-center"
-              priority
-              sizes="100vw"
-              aria-hidden="true"
-            />
-            {/* Fade edges into dark bg */}
-            <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-bg-primary to-transparent pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-bg-primary to-transparent pointer-events-none" />
-          </div>
+          {/* Background: pad see ew as full-bleed texture */}
+          <Image
+            src="/images/padseehero4k.png"
+            alt=""
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+            aria-hidden="true"
+          />
 
-          {/* Bottom section: copy + buttons */}
-          <div className="flex-shrink-0 px-6 pt-0 pb-5">
+          {/* Dark gradient so text stays readable */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/10 pointer-events-none" />
+
+          {/* Copy + buttons — pinned to bottom */}
+          <div className="absolute inset-x-0 bottom-0 px-6 pb-5">
             <p className="anim-fade-up delay-0 text-gold/50 text-[9px] uppercase tracking-[0.3em] mb-2 font-sans">
               Authentic Thai · Milwaukie, OR
             </p>
@@ -147,7 +145,7 @@ export default function HomeSection({ onTabChange }: Props) {
           </div>
 
           {/* Right — hero image */}
-          <div className="relative h-full overflow-hidden anim-slide-right delay-200">
+          <div className="relative h-full overflow-hidden anim-slide-right delay-200 bg-black">
             <Image
               src="/images/padseehero4k.png"
               alt="Pad See Ew — Magnolia Thai signature wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce"
