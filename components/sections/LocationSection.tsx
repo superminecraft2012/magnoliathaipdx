@@ -105,7 +105,7 @@ export default function LocationSection({ onTabChange }: Props) {
           </span>
         </div>
 
-        <h1 className="anim-fade-up delay-100 section-heading text-3xl md:text-4xl mb-1">Contact</h1>
+        <h1 className="anim-fade-up delay-100 section-heading text-3xl md:text-4xl mb-1">Find Us</h1>
         <div className="gold-divider max-w-[120px] mt-3 mb-7 anim-line delay-200" />
 
         {/* Order Online */}

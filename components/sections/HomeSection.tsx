@@ -7,29 +7,6 @@ interface Props {
   onTabChange?: (tab: TabId) => void
 }
 
-const SIGNATURES = [
-  {
-    label: 'Pad Thai',
-    img: '/images/5.png' as string | null,
-    alt: 'Pad Thai — Magnolia Thai signature Bangkok-style stir-fried rice noodles with egg, bean sprouts, and roasted peanuts',
-  },
-  {
-    label: 'Pad See Ew',
-    img: '/images/food/PadSeeEw.webp',
-    alt: 'Pad See Ew — wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce at Magnolia Thai Milwaukie',
-  },
-  {
-    label: 'Red Curry',
-    img: '/images/food/ThaiRedCurry.webp',
-    alt: 'Thai Red Curry with coconut milk, bamboo shoots, bell peppers, kaffir lime leaves, and fresh basil at Magnolia Thai Milwaukie',
-  },
-  {
-    label: 'Pineapple Rice',
-    img: '/images/food/PineappleFriedRice.webp',
-    alt: 'Pineapple Fried Rice with cashew nuts, peas, carrots, tomatoes, and pineapple at Magnolia Thai Milwaukie',
-  },
-]
-
 const SOCIAL = [
   { label: 'Like Magnolia Thai Restaurant on Facebook', icon: 'f', href: 'https://www.facebook.com/Magnoliathaipdx/' },
   { label: 'Follow Magnolia Thai Restaurant on Instagram', icon: '◎', href: 'https://www.instagram.com/magnoliathaipdx/' },
@@ -161,47 +138,14 @@ export default function HomeSection({ onTabChange }: Props) {
         </div>
       </div>
 
-      {/* ── Info strip — horizontal scroll on mobile ───────────── */}
-      <div className="border-t border-gold-muted flex-shrink-0 overflow-x-auto scrollbar-none">
+      {/* ── Info strip — vertical stack on mobile, horizontal on sm+ ── */}
+      <div className="border-t border-gold-muted flex-shrink-0 overflow-y-auto sm:overflow-x-auto scrollbar-none">
         <div
-          className="flex lg:grid lg:grid-cols-4 divide-x divide-gold-muted anim-stagger"
-          style={{ minWidth: 'max-content' }}
+          className="flex flex-col sm:flex-row lg:grid lg:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-gold-muted anim-stagger"
         >
 
-          {/* Our Signatures */}
-          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[160px] lg:min-w-0">
-            <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Signatures</h2>
-            <div
-              className="flex gap-1 sm:gap-2"
-              role="list"
-              aria-label="Magnolia Thai signature dishes"
-            >
-              {SIGNATURES.map((dish) => (
-                <button
-                  key={dish.label}
-                  role="listitem"
-                  onClick={() => onTabChange?.('menu')}
-                  className="relative w-[38px] h-[38px] sm:w-[62px] sm:h-[62px] rounded-md overflow-hidden flex-shrink-0 bg-bg-secondary border border-gold-muted hover:border-gold/50 transition-all duration-200 hover:scale-105 group"
-                  title={dish.alt}
-                  aria-label={`${dish.label} — view on menu`}
-                >
-                  {dish.img ? (
-                    <Image src={dish.img} alt={dish.alt} fill className="object-cover" sizes="62px" />
-                  ) : (
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: 'linear-gradient(135deg,#2a1f0a,#1a1a1a)' }}
-                      aria-hidden="true"
-                    />
-                  )}
-                  <span className="sr-only">{dish.alt}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Visit Us */}
-          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[150px] lg:min-w-0">
+          <div className="px-4 sm:px-5 py-3 sm:py-5 sm:min-w-[150px] lg:min-w-0">
             <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Visit Us</h2>
             <address className="not-italic space-y-1">
               <p className="text-gold/70 text-xs sm:text-sm font-sans leading-relaxed">
@@ -219,8 +163,8 @@ export default function HomeSection({ onTabChange }: Props) {
           </div>
 
           {/* Contact */}
-          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[160px] lg:min-w-0">
-            <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Contact</h2>
+          <div className="px-4 sm:px-5 py-3 sm:py-5 sm:min-w-[160px] lg:min-w-0">
+            <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Find Us</h2>
             <div className="space-y-1">
               <a
                 href="tel:+15036590149"
@@ -242,7 +186,7 @@ export default function HomeSection({ onTabChange }: Props) {
           </div>
 
           {/* Social */}
-          <div className="px-4 sm:px-5 py-3 sm:py-5 min-w-[130px] lg:min-w-0">
+          <div className="px-4 sm:px-5 py-3 sm:py-5 sm:min-w-[130px] lg:min-w-0">
             <h2 className="font-display text-gold-light text-sm sm:text-[19px] mb-2 sm:mb-3">Social</h2>
             <div className="flex gap-2">
               {SOCIAL.map((s) => (

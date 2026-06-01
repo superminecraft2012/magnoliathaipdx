@@ -22,8 +22,8 @@ const TABS: Tab[] = [
   { id: 'home', label: 'Home', Component: HomeSection },
   { id: 'menu', label: 'Menu', Component: MenuSection },
   { id: 'about', label: 'About Us', Component: AboutSection },
-  { id: 'contact', label: 'Contact', Component: LocationSection },
-  { id: 'gallery', label: 'Gallery', Component: GallerySection },
+  { id: 'contact', label: 'Find Us', Component: LocationSection },
+  // { id: 'gallery', label: 'Gallery', Component: GallerySection },  // hidden until real photos
 ]
 
 const TAB_TITLES: Record<TabId, string> = {
