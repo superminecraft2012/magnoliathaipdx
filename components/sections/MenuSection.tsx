@@ -31,7 +31,7 @@ function SpiceDots({ level }: { level?: 1 | 2 | 3 }) {
 function MenuItem({ item }: { item: MenuCategory['items'][0] }) {
   return (
     <div
-      className={`flex items-start justify-between gap-4 py-3 border-b border-gold-muted/30 last:border-0 ${item.isOutOfStock ? 'opacity-40' : ''}`}
+      className="flex items-start justify-between gap-4 py-3 border-b border-gold-muted/30 last:border-0"
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
@@ -44,11 +44,6 @@ function MenuItem({ item }: { item: MenuCategory['items'][0] }) {
           {item.isSignature && (
             <span className="bg-gold/15 text-gold text-[9px] uppercase tracking-widest px-1.5 py-0.5 font-sans font-bold rounded-sm flex-shrink-0">
               Signature
-            </span>
-          )}
-          {item.isOutOfStock && (
-            <span className="bg-red-900/40 text-red-300 text-[9px] uppercase tracking-widest px-1.5 py-0.5 font-sans rounded-sm flex-shrink-0">
-              Out of Stock
             </span>
           )}
         </div>

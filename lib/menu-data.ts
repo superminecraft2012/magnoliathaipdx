@@ -10,7 +10,6 @@ export interface MenuItem {
   proteinOptions?: boolean
   isVegan?: boolean
   isGlutenFree?: boolean
-  isOutOfStock?: boolean
   itemNumber?: string
 }
 
@@ -272,7 +271,6 @@ export const ALLDAY_CATEGORIES: MenuCategory[] = [
         seoAlt: 'Duck Curry — roasted duck in red curry with pineapple and vegetables at Magnolia Thai Restaurant',
         spice: 2,
         isGlutenFree: true,
-        isOutOfStock: true,
         isSignature: true,
       },
       {
@@ -295,7 +293,6 @@ export const ALLDAY_CATEGORIES: MenuCategory[] = [
         tags: ['special'],
         seoAlt: 'Crispy Duck and Ginger — deep fried boneless duck with honey-ginger sauce at Magnolia Thai Restaurant',
         isGlutenFree: true,
-        isOutOfStock: true,
         isSignature: true,
       },
       {
@@ -317,7 +314,6 @@ export const ALLDAY_CATEGORIES: MenuCategory[] = [
         tags: ['special', 'noodle'],
         seoAlt: 'Pad Thai Duck — crispy duck pad thai at Magnolia Thai Restaurant',
         isGlutenFree: true,
-        isOutOfStock: true,
       },
       {
         id: 's11-pad-thai-lemongrass',
@@ -553,7 +549,6 @@ export const ALLDAY_CATEGORIES: MenuCategory[] = [
         price: 14,
         tags: ['appetizer'],
         seoAlt: 'Grilled Pork Skewers Moo Ping at Magnolia Thai Restaurant',
-        isOutOfStock: true,
       },
     ],
   },
@@ -963,7 +958,6 @@ export const ALLDAY_CATEGORIES: MenuCategory[] = [
         price: 23,
         tags: ['rice'],
         seoAlt: 'Duck Fried Rice at Magnolia Thai Restaurant',
-        isOutOfStock: true,
       },
     ],
   },
