@@ -114,6 +114,15 @@ export default function LocationSection({ onTabChange }: Props) {
           <p className="text-gold/55 text-sm font-sans mb-4">
             Order delivery or pickup through your preferred platform
           </p>
+          <a
+            href="https://www.toasttab.com/local/order/magnoliathaipdx"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-cta w-full mb-3"
+            aria-label="Order directly from Magnolia Thai"
+          >
+            Order Online
+          </a>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 anim-stagger">
             {ORDER_PLATFORMS.map((platform) => (
               <a
