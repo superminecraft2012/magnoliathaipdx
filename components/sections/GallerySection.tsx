@@ -12,31 +12,43 @@ interface GalleryItem {
   id: string
   src: string
   alt: string
-  caption: string
 }
 
 const ALL_ITEMS: GalleryItem[] = [
-  { id: 'panang-curry',        src: '/images/1.png',                       alt: 'Panang Curry with beef, green beans and red peppers in rich coconut curry sauce',      caption: 'Panang Curry' },
-  { id: 'duck-curry',          src: '/images/2.png',                       alt: 'Roasted Duck Curry in red curry with Thai basil and coconut milk',                     caption: 'Duck Curry' },
-  { id: 'drunken-noodles',     src: '/images/3.png',                       alt: 'Drunken Noodles — wide flat rice noodles stir fried with shrimp, beef and bell peppers', caption: 'Drunken Noodles' },
-  { id: 'crab-puffs',          src: '/images/4.png',                       alt: 'Crab Puffs — fried dumplings filled with crab and cream cheese',                       caption: 'Crab Puffs' },
-  { id: 'pad-thai',            src: '/images/5.png',                       alt: 'Pad Thai — stir-fried rice noodles with shrimp, egg, bean sprouts and ground peanuts', caption: 'Pad Thai' },
-  { id: 'salmon-pumpkin',      src: '/images/6.png',                       alt: 'Salmon Pumpkin Curry — grilled salmon in Thai curry with broccoli and peas',           caption: 'Salmon Pumpkin Curry' },
-  { id: 'khao-soi',            src: '/images/7.png',                       alt: 'Khao Soi — Northern Thai curry noodles with crispy egg noodles',                       caption: 'Khao Soi' },
-  { id: 'spring-rolls',        src: '/images/8.png',                       alt: 'Crispy Spring Rolls with sweet dipping sauce',                                         caption: 'Spring Rolls' },
-  { id: 'pot-stickers',        src: '/images/9.png',                       alt: 'Pot Stickers — pan-fried dumplings with Thai-style ginger soy sauce',                  caption: 'Pot Stickers' },
-  { id: 'garlic-beef',         src: '/images/10.png',                      alt: 'Garlic Beef & Broccoli with carrots in savory oyster sauce',                           caption: 'Garlic Beef & Broccoli' },
-  { id: 'pad-thai-shrimp',     src: '/images/11.png',                      alt: 'Pad Thai Shrimp — rice noodles with tiger shrimp, lime and bean sprouts',              caption: 'Pad Thai Shrimp' },
-  { id: 'sweet-basil-chicken', src: '/images/12.png',                      alt: 'Sweet Basil Chicken stir-fry with mushrooms, peppers and fresh basil',                 caption: 'Sweet Basil Chicken' },
-  { id: 'pad-see-ew',          src: '/images/food/PadSeeEw.webp',          alt: 'Pad See Ew — wide rice noodles with egg, broccoli and sweet dark soy sauce',           caption: 'Pad See Ew' },
-  { id: 'pineapple-fried-rice',src: '/images/food/PineappleFriedRice.webp',alt: 'Pineapple Fried Rice with cashews, peas, carrots and pineapple',                      caption: 'Pineapple Fried Rice' },
-  { id: 'thai-red-curry',      src: '/images/food/ThaiRedCurry.webp',      alt: 'Thai Red Curry with coconut milk, bamboo shoots and kaffir lime leaves',               caption: 'Thai Red Curry' },
+  { id: 'dish-1',  src: '/menu/1.png',  alt: 'Panang Curry with beef, green beans and red peppers in rich coconut curry sauce' },
+  { id: 'dish-2',  src: '/menu/2.png',  alt: 'Roasted Duck Curry in red curry with Thai basil and coconut milk' },
+  { id: 'dish-3',  src: '/menu/3.png',  alt: 'Drunken Noodles — wide flat rice noodles stir fried with shrimp, beef and bell peppers' },
+  { id: 'dish-4',  src: '/menu/4.png',  alt: 'Crab Puffs — fried dumplings filled with crab and cream cheese' },
+  { id: 'dish-5',  src: '/menu/5.png',  alt: 'Pad Thai — stir-fried rice noodles with shrimp, egg, bean sprouts and ground peanuts' },
+  { id: 'dish-6',  src: '/menu/6.png',  alt: 'Salmon Pumpkin Curry — grilled salmon in Thai curry with broccoli and peas' },
+  { id: 'dish-7',  src: '/menu/7.png',  alt: 'Khao Soi — Northern Thai curry noodles with crispy egg noodles' },
+  { id: 'dish-8',  src: '/menu/8.png',  alt: 'Crispy Spring Rolls with sweet dipping sauce' },
+  { id: 'dish-9',  src: '/menu/9.png',  alt: 'Pot Stickers — pan-fried dumplings with Thai-style ginger soy sauce' },
+  { id: 'dish-10', src: '/menu/10.png', alt: 'Garlic Beef & Broccoli with carrots in savory oyster sauce' },
+  { id: 'dish-11', src: '/menu/11.png', alt: 'Pad Thai Shrimp — rice noodles with tiger shrimp, lime and bean sprouts' },
+  { id: 'dish-12', src: '/menu/12.png', alt: 'Sweet Basil Chicken stir-fry with mushrooms, peppers and fresh basil' },
+  { id: 'dish-13', src: '/menu/13.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-14', src: '/menu/14.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-15', src: '/menu/15.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-16', src: '/menu/16.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-17', src: '/menu/17.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-18', src: '/menu/18.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-19', src: '/menu/19.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-20', src: '/menu/20.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-21', src: '/menu/21.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-22', src: '/menu/22.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-23', src: '/menu/23.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-24', src: '/menu/24.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-25', src: '/menu/25.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-26', src: '/menu/26.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-27', src: '/menu/27.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-28', src: '/menu/28.png', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
 ]
 
 const TRACKS = [
-  { items: ALL_ITEMS.slice(0, 5),  startIdx: 0,  duration: 38, dir: 'left'  },
-  { items: ALL_ITEMS.slice(5, 10), startIdx: 5,  duration: 54, dir: 'right' },
-  { items: ALL_ITEMS.slice(10),    startIdx: 10, duration: 44, dir: 'left'  },
+  { items: ALL_ITEMS.slice(0, 10),  startIdx: 0,  duration: 55, dir: 'left'  },
+  { items: ALL_ITEMS.slice(10, 19), startIdx: 10, duration: 62, dir: 'right' },
+  { items: ALL_ITEMS.slice(19, 28), startIdx: 19, duration: 55, dir: 'left'  },
 ] as const
 
 // ── Individual photo tile ────────────────────────────────────────────────────
@@ -86,7 +98,7 @@ function PhotoItem({
       onKeyDown={(e) => e.key === 'Enter' && onOpen(globalIndex)}
       role="button"
       tabIndex={0}
-      aria-label={`View ${item.caption}`}
+      aria-label={`View dish — ${item.alt}`}
     >
       <Image
         src={item.src}
@@ -98,11 +110,6 @@ function PhotoItem({
         priority={priority}
         loading={priority ? 'eager' : 'lazy'}
       />
-      <div className="gallery-caption">
-        <span className="text-gold/55 text-[9px] sm:text-[10px] font-sans uppercase tracking-[0.2em]">
-          {item.caption}
-        </span>
-      </div>
     </div>
   )
 }
@@ -189,7 +196,7 @@ export default function GallerySection({ onTabChange }: Props) {
             Gallery
           </h1>
           <p className="text-gold/35 text-xs font-sans uppercase tracking-[0.3em] mt-3">
-            {ALL_ITEMS.length} dishes · hover to pause
+            Hover to pause
           </p>
         </div>
         <button
@@ -229,7 +236,7 @@ export default function GallerySection({ onTabChange }: Props) {
       <ul className="sr-only">
         {ALL_ITEMS.map((item, i) => (
           <li key={item.id}>
-            <button onClick={() => openLightbox(i)}>{item.caption} — {item.alt}</button>
+            <button onClick={() => openLightbox(i)}>{item.alt}</button>
           </li>
         ))}
       </ul>
@@ -242,7 +249,7 @@ export default function GallerySection({ onTabChange }: Props) {
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center"
           role="dialog"
           aria-modal="true"
-          aria-label={`Photo: ${lightboxItem.caption}`}
+          aria-label={`Photo: ${lightboxItem.alt}`}
           onClick={closeLightbox}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -292,7 +299,6 @@ export default function GallerySection({ onTabChange }: Props) {
               />
             </div>
             <div className="mt-4 text-center">
-              <p className="text-gold-light font-display text-xl sm:text-2xl">{lightboxItem.caption}</p>
               <p className="text-white/20 text-[10px] font-sans uppercase tracking-widest mt-1 sm:hidden">
                 Swipe to navigate
               </p>

@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import type { TabId } from '@/components/TabsClient'
 
 interface Props {
@@ -24,41 +23,35 @@ export default function HomeSection({ onTabChange }: Props) {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <div className="flex-1 relative overflow-hidden min-h-0">
 
-        {/* Background watermark (all sizes) */}
-        <div
-          className="absolute inset-0 z-[1] hidden sm:flex items-center justify-center pointer-events-none select-none"
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
           aria-hidden="true"
         >
-          <Image
-            src="/images/logonotext.png"
-            alt=""
-            width={960}
-            height={960}
-            className="opacity-[0.06] mix-blend-luminosity"
-            style={{ filter: 'grayscale(1) brightness(2.5)' }}
-            priority
-          />
-        </div>
+          <source src="/videos/magnolia-hero.mp4" type="video/mp4" />
+        </video>
 
-        {/* ── Mobile hero (< sm): full-bleed food photo, text over it ── */}
+        {/* 12% black overlay */}
+        <div className="absolute inset-0 bg-black z-[1]" style={{ opacity: 0.12 }} aria-hidden="true" />
+
+        {/* Vignette */}
+        <div
+          className="absolute inset-0 z-[2] pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.72) 100%)' }}
+          aria-hidden="true"
+        />
+
+        {/* ── Mobile hero (< sm): text over video ── */}
         <div className="sm:hidden absolute inset-0 z-10">
 
-          {/* Background: pad see ew — scaled down, centred in upper half, faded */}
-          <div className="absolute inset-x-0 top-0 h-[62%] pointer-events-none">
-            <Image
-              src="/images/padseehero4k.png"
-              alt=""
-              fill
-              className="object-contain object-center opacity-40"
-              priority
-              sizes="100vw"
-              aria-hidden="true"
-            />
-          </div>
-
-          {/* Fade all edges into page bg */}
-          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-bg-primary to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/70 to-transparent pointer-events-none" />
+          {/* Gradient for readability */}
+          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-bg-primary/60 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-transparent pointer-events-none" />
 
           {/* Copy + buttons — pinned to bottom */}
           <div className="absolute inset-x-0 bottom-0 px-6 pb-5">
@@ -88,11 +81,14 @@ export default function HomeSection({ onTabChange }: Props) {
           </div>
         </div>
 
-        {/* ── Desktop hero (sm+): side-by-side grid ── */}
-        <div className="hidden sm:grid sm:grid-cols-[58%_42%] lg:grid-cols-[58%_42%] absolute inset-0 z-10">
+        {/* ── Desktop hero (sm+): full-width content over video ── */}
+        <div className="hidden sm:flex items-center absolute inset-0 z-10">
 
-          {/* Left — copy */}
-          <div className="flex flex-col justify-center px-10 md:px-14 lg:px-16">
+          {/* Gradient for readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-bg-primary/80 via-bg-primary/30 to-transparent pointer-events-none" />
+
+          {/* Copy */}
+          <div className="relative flex flex-col justify-center px-10 md:px-14 lg:px-20 max-w-2xl xl:max-w-3xl">
             <p className="anim-fade-up delay-0 text-gold/55 text-[13px] uppercase tracking-[0.32em] mb-4 font-sans">
               Authentic Thai · Milwaukie, OR
             </p>
@@ -122,18 +118,6 @@ export default function HomeSection({ onTabChange }: Props) {
                 View Menu
               </button>
             </div>
-          </div>
-
-          {/* Right — hero image */}
-          <div className="relative h-full overflow-hidden anim-slide-right delay-200">
-            <Image
-              src="/images/padseehero4k.png"
-              alt="Pad See Ew — Magnolia Thai signature wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce"
-              fill
-              className="object-contain object-center"
-              priority
-              sizes="(max-width:1024px) 42vw, 42vw"
-            />
           </div>
         </div>
       </div>
