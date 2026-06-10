@@ -1,14 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { LUNCH_CATEGORIES, ALLDAY_CATEGORIES, PROTEIN_OPTIONS, type MenuCategory } from '@/lib/menu-data'
+import { ALLDAY_CATEGORIES, PROTEIN_OPTIONS, type MenuCategory } from '@/lib/menu-data'
 import type { TabId } from '@/components/TabsClient'
 
 interface Props {
   onTabChange?: (tab: TabId) => void
 }
 
-type MenuMode = 'all-day' | 'lunch'
 type FilterId = string
 
 function SpiceDots({ level }: { level?: 1 | 2 | 3 }) {
@@ -73,12 +72,11 @@ function MenuItem({ item }: { item: MenuCategory['items'][0] }) {
 }
 
 export default function MenuSection({ onTabChange }: Props) {
-  const [menuMode, setMenuMode] = useState<MenuMode>('all-day')
   const [activeFilter, setActiveFilter] = useState<FilterId>(() =>
     ALLDAY_CATEGORIES[0]?.id ?? ''
   )
 
-  const categories = menuMode === 'lunch' ? LUNCH_CATEGORIES : ALLDAY_CATEGORIES
+  const categories = ALLDAY_CATEGORIES
   const filters: { id: FilterId; label: string }[] = categories.map((c) => ({ id: c.id, label: c.name }))
   const visibleCategories = categories.filter((c) => c.id === activeFilter)
 
@@ -101,27 +99,6 @@ export default function MenuSection({ onTabChange }: Props) {
             >
               Order Online
             </button>
-          </div>
-
-          {/* Menu mode toggle */}
-          <div className="flex gap-2 mt-3 sm:mt-4">
-            {[
-              { mode: 'all-day' as MenuMode, label: 'All Day', onSwitch: () => { setMenuMode('all-day'); setActiveFilter(ALLDAY_CATEGORIES[0].id) } },
-              { mode: 'lunch' as MenuMode, label: 'Lunch', onSwitch: () => { setMenuMode('lunch'); setActiveFilter(LUNCH_CATEGORIES[0].id) } },
-            ].map(({ mode, label, onSwitch }) => (
-              <button
-                key={mode}
-                onClick={onSwitch}
-                className={[
-                  'px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] font-sans border rounded-sm transition-all duration-200',
-                  menuMode === mode
-                    ? 'bg-gold-light text-bg-primary border-gold-light font-bold'
-                    : 'border-gold-muted text-gold/70 hover:border-gold/50 hover:text-gold',
-                ].join(' ')}
-              >
-                {label}
-              </button>
-            ))}
           </div>
 
           {/* Category filter tabs */}
