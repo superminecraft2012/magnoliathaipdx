@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import type { TabId } from '@/components/TabsClient'
 
@@ -8,195 +8,225 @@ interface Props {
   onTabChange?: (tab: TabId) => void
 }
 
-type GalleryFilter = 'all' | 'food' | 'restaurant' | 'events'
+type FilterId = 'all' | 'food' | 'restaurant'
 
 interface GalleryItem {
   id: string
-  filter: GalleryFilter
-  /** CSS grid span: 1 or 2 */
-  span?: 2
-  imgSrc?: string
-  lightBg?: boolean  // for white-background product shots
-  seoAlt: string
+  src: string
+  alt: string
   caption: string
-  /** Aspect ratio class */
-  aspect: string
+  filter: Exclude<FilterId, 'all'>
+  span?: 2
 }
 
 const GALLERY: GalleryItem[] = [
+  // Restaurant
   {
     id: 'dining-room',
+    src: '/images/herosection.webp',
+    alt: 'Magnolia Thai Restaurant dining room with warm golden lighting in Milwaukie, Oregon',
+    caption: 'The Dining Room',
     filter: 'restaurant',
     span: 2,
-    imgSrc: '/images/herosection.webp',
-    seoAlt:
-      'Magnolia Thai Restaurant dining room — warm golden lighting and inviting atmosphere at our Milwaukie, Oregon location',
-    caption: 'The Dining Room',
-    aspect: 'aspect-[16/9]',
   },
   {
-    id: 'pad-see-ew',
+    id: 'evening-atmosphere',
+    src: '/images/ourstoryhero.webp',
+    alt: 'Evening atmosphere at Magnolia Thai Restaurant — intimate dining with warm Thai decor in Milwaukie',
+    caption: 'Evening Atmosphere',
+    filter: 'restaurant',
+  },
+  {
+    id: 'signature-dishes',
+    src: '/images/menuhero.webp',
+    alt: 'Magnolia Thai signature curry served in a traditional silver pot with jasmine rice',
+    caption: 'Signature Dishes',
+    filter: 'restaurant',
+  },
+  // Food — curries
+  {
+    id: 'panang-curry',
+    src: '/images/1.png',
+    alt: 'Panang Curry with tender beef, green beans, red peppers and rich coconut curry sauce at Magnolia Thai',
+    caption: 'Panang Curry',
     filter: 'food',
-    imgSrc: '/images/food/PadSeeEw.webp',
-    lightBg: true,
-    seoAlt:
-      'Pad See Ew — wide rice noodles stir fried with egg, broccoli, carrots, and sweet dark soy sauce at Magnolia Thai',
-    caption: 'Pad See Ew',
-    aspect: 'aspect-square',
+  },
+  {
+    id: 'duck-curry',
+    src: '/images/2.png',
+    alt: 'Roasted Duck Curry in red curry with Thai basil and coconut milk at Magnolia Thai Milwaukie',
+    caption: 'Duck Curry',
+    filter: 'food',
   },
   {
     id: 'thai-red-curry',
-    filter: 'food',
-    imgSrc: '/images/food/ThaiRedCurry.webp',
-    lightBg: true,
-    seoAlt:
-      'Thai Red Curry with coconut milk, bamboo shoots, bell peppers, and kaffir lime leaves at Magnolia Thai',
+    src: '/images/food/ThaiRedCurry.webp',
+    alt: 'Thai Red Curry with coconut milk, bamboo shoots, bell peppers and kaffir lime leaves',
     caption: 'Thai Red Curry',
-    aspect: 'aspect-square',
+    filter: 'food',
   },
   {
-    id: 'restaurant-evening',
-    filter: 'restaurant',
-    imgSrc: '/images/ourstoryhero.webp',
-    seoAlt:
-      'Magnolia Thai Restaurant evening atmosphere — intimate dining setting with warm lighting and traditional Thai decor in Milwaukie, Oregon',
-    caption: 'Evening Atmosphere',
-    aspect: 'aspect-[4/3]',
+    id: 'salmon-pumpkin-curry',
+    src: '/images/6.png',
+    alt: 'Salmon Pumpkin Curry — grilled salmon on pumpkin in Thai curry with broccoli and peas',
+    caption: 'Salmon Pumpkin Curry',
+    filter: 'food',
   },
+  // Food — noodles
   {
-    id: 'signature-curry',
+    id: 'drunken-noodles',
+    src: '/images/3.png',
+    alt: 'Drunken Noodles — wide flat rice noodles stir fried with shrimp, beef, bell peppers and fresh basil',
+    caption: 'Drunken Noodles',
     filter: 'food',
     span: 2,
-    imgSrc: '/images/menuhero.webp',
-    seoAlt:
-      'Magnolia Thai signature curry — rich Thai curry served in a traditional silver pot with coconut milk, warming spices, and fresh coriander, with jasmine rice on the side',
-    caption: 'Signature Curry',
-    aspect: 'aspect-[16/9]',
+  },
+  {
+    id: 'pad-thai',
+    src: '/images/5.png',
+    alt: 'Pad Thai — stir-fried rice noodles with shrimp, egg, bean sprouts, lime and ground peanuts',
+    caption: 'Pad Thai',
+    filter: 'food',
+  },
+  {
+    id: 'khao-soi',
+    src: '/images/7.png',
+    alt: 'Khao Soi — Northern Thai curry noodles with crispy egg noodles, shallots and pickled mustard greens',
+    caption: 'Khao Soi',
+    filter: 'food',
+  },
+  {
+    id: 'pad-thai-shrimp',
+    src: '/images/11.png',
+    alt: 'Pad Thai Shrimp — classic stir-fried rice noodles with tiger shrimp, lime and bean sprouts',
+    caption: 'Pad Thai Shrimp',
+    filter: 'food',
+  },
+  {
+    id: 'pad-see-ew',
+    src: '/images/food/PadSeeEw.webp',
+    alt: 'Pad See Ew — wide rice noodles stir fried with egg, broccoli, carrots and sweet dark soy sauce',
+    caption: 'Pad See Ew',
+    filter: 'food',
+  },
+  // Food — mains & starters
+  {
+    id: 'garlic-beef',
+    src: '/images/10.png',
+    alt: 'Garlic Beef & Broccoli — tender beef with broccoli, carrots and savory oyster sauce',
+    caption: 'Garlic Beef & Broccoli',
+    filter: 'food',
+  },
+  {
+    id: 'sweet-basil-chicken',
+    src: '/images/12.png',
+    alt: 'Sweet Basil Chicken — stir-fried with bell peppers, mushrooms and Thai basil, garnished with orchid',
+    caption: 'Sweet Basil Chicken',
+    filter: 'food',
   },
   {
     id: 'pineapple-fried-rice',
-    filter: 'food',
-    imgSrc: '/images/food/PineappleFriedRice.webp',
-    lightBg: true,
-    seoAlt:
-      'Pineapple Fried Rice with cashew nuts, peas, carrots, tomatoes, and pineapple at Magnolia Thai',
+    src: '/images/food/PineappleFriedRice.webp',
+    alt: 'Pineapple Fried Rice with cashew nuts, peas, carrots, tomatoes and pineapple',
     caption: 'Pineapple Fried Rice',
-    aspect: 'aspect-square',
-  },
-  {
-    id: 'events-private',
-    filter: 'events',
-    span: 2,
-    seoAlt:
-      'Private dining at Magnolia Thai Restaurant — large group table set for a Thai feast',
-    caption: 'Private Dining Events',
-    aspect: 'aspect-[16/9]',
-  },
-  {
-    id: 'events-cooking',
-    filter: 'events',
-    seoAlt:
-      'Cooking at Magnolia Thai Restaurant — authentic Thai dishes prepared fresh in our kitchen',
-    caption: 'Cooking Classes',
-    aspect: 'aspect-square',
+    filter: 'food',
   },
   {
     id: 'spring-rolls',
+    src: '/images/8.png',
+    alt: 'Crispy Fried Spring Rolls with sweet dipping sauce and fresh garnish at Magnolia Thai',
+    caption: 'Spring Rolls',
     filter: 'food',
-    imgSrc: '/images/8.png',
-    seoAlt:
-      'Crispy spring rolls with peanut dipping sauce, garnished with orchid at Magnolia Thai Restaurant Milwaukie Oregon',
-    caption: 'Crispy Spring Rolls',
-    aspect: 'aspect-[3/4]',
   },
   {
-    id: 'pad-thai-gallery',
+    id: 'crab-puffs',
+    src: '/images/4.png',
+    alt: 'Crab Puffs — fried dumplings filled with crab, cream cheese and vegetables with plum sauce',
+    caption: 'Crab Puffs',
     filter: 'food',
-    imgSrc: '/images/5.png',
-    seoAlt:
-      'Pad Thai — Bangkok-style stir-fried rice noodles with shrimp, egg, bean sprouts, lime, and roasted peanuts at Magnolia Thai Milwaukie',
-    caption: 'Pad Thai',
-    aspect: 'aspect-square',
   },
   {
-    id: 'panang-curry-gallery',
-    filter: 'food',
-    imgSrc: '/images/1.png',
-    seoAlt:
-      'Panang Curry with tender beef, green beans, and rich red curry sauce at Magnolia Thai Restaurant Milwaukie Oregon',
-    caption: 'Panang Curry',
-    aspect: 'aspect-[4/3]',
-  },
-  {
-    id: 'duck-curry-gallery',
-    filter: 'food',
-    imgSrc: '/images/2.png',
-    seoAlt:
-      'S5 Duck Curry — roasted duck in red curry with grapes, Thai basil, and coconut milk at Magnolia Thai Milwaukie',
-    caption: 'Duck Curry',
-    aspect: 'aspect-square',
-  },
-  {
-    id: 'drunken-noodles-gallery',
-    filter: 'food',
-    span: 2,
-    imgSrc: '/images/3.png',
-    seoAlt:
-      'Drunken Noodles (Pad Kee Mao) — wide flat rice noodles stir fried with shrimp, beef, bell peppers, and fresh basil at Magnolia Thai',
-    caption: 'Drunken Noodles',
-    aspect: 'aspect-[16/9]',
-  },
-  {
-    id: 'pot-stickers-gallery',
-    filter: 'food',
-    imgSrc: '/images/9.png',
-    seoAlt:
-      'Pan-fried pot stickers with savory dipping sauce at Magnolia Thai Restaurant Milwaukie Oregon',
+    id: 'pot-stickers',
+    src: '/images/9.png',
+    alt: 'Pot Stickers — pan-fried dumplings with savory filling and Thai-style ginger soy sauce',
     caption: 'Pot Stickers',
-    aspect: 'aspect-square',
-  },
-  {
-    id: 'salmon-curry-gallery',
     filter: 'food',
-    imgSrc: '/images/6.png',
-    seoAlt:
-      'S6 Salmon Pumpkin Curry — grilled salmon on pumpkin in Thai curry with broccoli and peas at Magnolia Thai Milwaukie',
-    caption: 'Salmon Pumpkin Curry',
-    aspect: 'aspect-[4/3]',
   },
 ]
 
-const FILTERS: { id: GalleryFilter; label: string }[] = [
+const FILTERS: { id: FilterId; label: string }[] = [
   { id: 'all', label: 'All' },
-  { id: 'food', label: 'Food & Drinks' },
-  { id: 'restaurant', label: 'The Restaurant' },
-  { id: 'events', label: 'Events' },
-]
-
-// Warm gradient variants for placeholder tiles
-const GRADIENTS = [
-  'linear-gradient(135deg,#2a1f0a 0%,#1a1a1a 100%)',
-  'linear-gradient(135deg,#1a1a1a 0%,#221a0a 100%)',
-  'linear-gradient(135deg,#221a0a 0%,#1c1c1c 50%,#0a0a0a 100%)',
-  'linear-gradient(135deg,#1c1a0e 0%,#1a1a1a 100%)',
+  { id: 'food', label: 'Food' },
+  { id: 'restaurant', label: 'Restaurant' },
 ]
 
 export default function GallerySection({ onTabChange }: Props) {
-  const [activeFilter, setActiveFilter] = useState<GalleryFilter>('all')
-  const [lightbox, setLightbox] = useState<GalleryItem | null>(null)
+  const [activeFilter, setActiveFilter] = useState<FilterId>('all')
+  const [gridKey, setGridKey] = useState(0)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const touchStartX = useRef(0)
 
   const visible =
     activeFilter === 'all' ? GALLERY : GALLERY.filter((i) => i.filter === activeFilter)
+
+  const handleFilterChange = useCallback((id: FilterId) => {
+    setActiveFilter(id)
+    setGridKey((k) => k + 1)
+  }, [])
+
+  const openLightbox = useCallback((index: number) => {
+    setLightboxIndex(index)
+  }, [])
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null)
+  }, [])
+
+  const goNext = useCallback(() => {
+    setLightboxIndex((i) => (i !== null ? (i + 1) % visible.length : null))
+  }, [visible.length])
+
+  const goPrev = useCallback(() => {
+    setLightboxIndex((i) => (i !== null ? (i - 1 + visible.length) % visible.length : null))
+  }, [visible.length])
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (lightboxIndex === null) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowRight') goNext()
+      if (e.key === 'ArrowLeft') goPrev()
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [lightboxIndex, closeLightbox, goNext, goPrev])
+
+  // Touch swipe in lightbox
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].clientX
+  }, [])
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      const diff = touchStartX.current - e.changedTouches[0].clientX
+      if (diff > 50) goNext()
+      else if (diff < -50) goPrev()
+    },
+    [goNext, goPrev],
+  )
+
+  const lightboxItem = lightboxIndex !== null ? visible[lightboxIndex] : null
 
   return (
     <section
       className="min-h-full bg-bg-primary"
       aria-label="Magnolia Thai Restaurant photo gallery"
     >
-      {/* Header + filters */}
+      {/* Sticky header */}
       <div className="sticky top-0 z-10 bg-bg-primary/95 backdrop-blur-sm border-b border-gold-muted">
         <div className="px-4 sm:px-6 md:px-12 py-4 sm:py-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <div>
               <h1 className="anim-slide-left section-heading text-2xl md:text-3xl">Gallery</h1>
               <p className="anim-fade-up delay-100 text-gold/40 text-[11px] font-sans uppercase tracking-widest mt-1">
@@ -205,7 +235,7 @@ export default function GallerySection({ onTabChange }: Props) {
             </div>
             <button
               onClick={() => onTabChange?.('contact')}
-              className="btn-cta text-[11px] px-6 py-3 self-start sm:self-auto"
+              className="btn-cta text-[10px] sm:text-[11px] px-5 py-2.5 sm:px-6 sm:py-3 self-start sm:self-auto"
               aria-label="Order online from Magnolia Thai Restaurant"
             >
               Order Online
@@ -213,70 +243,99 @@ export default function GallerySection({ onTabChange }: Props) {
           </div>
 
           {/* Filter row */}
-          <div className="flex gap-1.5 overflow-x-auto pb-px" role="tablist" aria-label="Gallery filters">
+          <div
+            className="flex gap-1.5 overflow-x-auto pb-px scrollbar-none"
+            role="tablist"
+            aria-label="Gallery filters"
+          >
             {FILTERS.map((f) => (
               <button
                 key={f.id}
                 role="tab"
                 aria-selected={activeFilter === f.id}
-                onClick={() => setActiveFilter(f.id)}
+                onClick={() => handleFilterChange(f.id)}
                 className={[
-                  'flex-shrink-0 px-4 py-1.5 text-[11px] uppercase tracking-[0.18em] font-sans',
+                  'flex-shrink-0 px-4 py-2 text-[11px] uppercase tracking-[0.18em] font-sans',
                   'border transition-all duration-200 rounded-sm focus:outline-none',
+                  'focus-visible:ring-1 focus-visible:ring-gold',
                   activeFilter === f.id
                     ? 'bg-gold-light text-bg-primary border-gold-light font-bold'
                     : 'border-gold-muted text-gold/65 hover:border-gold/40 hover:text-gold',
                 ].join(' ')}
               >
                 {f.label}
+                <span className="ml-1.5 opacity-50 text-[9px]">
+                  {f.id === 'all'
+                    ? GALLERY.length
+                    : GALLERY.filter((i) => i.filter === f.id).length}
+                </span>
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Masonry-style grid */}
-      <div className="px-4 sm:px-6 md:px-12 py-6 sm:py-8">
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-0 anim-stagger">
-          {visible.map((item, i) => (
+      {/* Grid */}
+      <div className="px-3 sm:px-6 md:px-12 py-4 sm:py-6">
+        <div
+          key={gridKey}
+          className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3"
+        >
+          {visible.map((item, idx) => (
             <div
               key={item.id}
-              className={`gallery-item group mb-4 break-inside-avoid ${item.span === 2 ? 'sm:col-span-2' : ''}`}
-              onClick={() => setLightbox(item)}
-              onKeyDown={(e) => e.key === 'Enter' && setLightbox(item)}
+              className={[
+                'gallery-item group gallery-anim-in',
+                item.span === 2 ? 'col-span-2' : '',
+              ].join(' ')}
+              style={{ animationDelay: `${Math.min(idx, 11) * 45}ms` }}
+              onClick={() => openLightbox(idx)}
+              onKeyDown={(e) => e.key === 'Enter' && openLightbox(idx)}
               role="button"
               tabIndex={0}
-              aria-label={`View photo: ${item.caption} — ${item.seoAlt}`}
+              aria-label={`View photo: ${item.caption}`}
             >
-              <div className={`relative w-full overflow-hidden ${item.aspect} bg-bg-secondary`}>
-                {item.imgSrc ? (
-                  <Image
-                    src={item.imgSrc}
-                    alt={item.seoAlt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-                  />
-                ) : (
-                  <div
-                    className="absolute inset-0 transition-transform duration-700 hover:scale-105"
-                    style={{ background: GRADIENTS[i % GRADIENTS.length] }}
-                    role="img"
-                    aria-label={item.seoAlt}
-                  />
-                )}
+              <div
+                className={`relative w-full overflow-hidden ${
+                  item.span === 2 ? 'aspect-[16/9]' : 'aspect-square'
+                }`}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  sizes={
+                    item.span === 2
+                      ? '(max-width:768px) 100vw, (max-width:1280px) 66vw, 880px'
+                      : '(max-width:640px) 50vw, (max-width:1280px) 33vw, 440px'
+                  }
+                  loading={idx < 4 ? 'eager' : 'lazy'}
+                  priority={idx < 2}
+                />
                 {/* Caption overlay */}
                 <div className="gallery-overlay">
-                  <p className="text-white/90 text-sm font-sans font-light">{item.caption}</p>
-                </div>
-                {/* Caption label (always visible on placeholder) */}
-                <div className="absolute top-2 left-2">
-                  <span className="text-[9px] text-gold/25 uppercase tracking-widest font-sans">
+                  <p className="text-white text-sm font-sans font-medium leading-tight">
                     {item.caption}
-                  </span>
+                  </p>
                 </div>
-                {/* Hidden SEO alt text */}
-                <span className="sr-only">{item.seoAlt}</span>
+                {/* Zoom icon */}
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none">
+                  <svg
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-white drop-shadow-lg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
           ))}
@@ -284,7 +343,9 @@ export default function GallerySection({ onTabChange }: Props) {
 
         {visible.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-gold/30 font-sans text-sm uppercase tracking-widest">No photos in this category yet.</p>
+            <p className="text-gold/30 font-sans text-sm uppercase tracking-widest">
+              No photos in this category.
+            </p>
           </div>
         )}
 
@@ -292,50 +353,79 @@ export default function GallerySection({ onTabChange }: Props) {
       </div>
 
       {/* Lightbox */}
-      {lightbox && (
+      {lightboxItem && lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setLightbox(null)}
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center"
           role="dialog"
           aria-modal="true"
-          aria-label={`Photo lightbox: ${lightbox.caption}`}
+          aria-label={`Photo: ${lightboxItem.caption}`}
+          onClick={closeLightbox}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
+          {/* Close */}
           <button
-            className="absolute top-4 right-4 text-white/70 hover:text-white text-2xl w-10 h-10 flex items-center justify-center"
-            onClick={() => setLightbox(null)}
+            className="absolute top-3 right-3 sm:top-5 sm:right-5 z-10 w-11 h-11 flex items-center justify-center text-white/50 hover:text-white transition-colors rounded-full hover:bg-white/10"
+            onClick={closeLightbox}
             aria-label="Close lightbox"
           >
-            ✕
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18 18 6M6 6l12 12" />
+            </svg>
           </button>
+
+          {/* Counter */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/35 text-[11px] font-sans uppercase tracking-widest pointer-events-none">
+            {lightboxIndex + 1} / {visible.length}
+          </div>
+
+          {/* Prev */}
+          <button
+            className="absolute left-1 sm:left-4 z-10 w-12 h-12 flex items-center justify-center text-white/40 hover:text-white transition-colors rounded-full hover:bg-white/10"
+            onClick={(e) => { e.stopPropagation(); goPrev() }}
+            aria-label="Previous photo"
+          >
+            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          {/* Image */}
           <div
-            className="max-w-3xl w-full"
+            className="relative w-full max-w-3xl mx-14 sm:mx-20 px-2"
             onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className={`relative w-full rounded-lg overflow-hidden bg-bg-secondary ${lightbox.aspect}`}
-            >
-              {lightbox.imgSrc ? (
-                <Image
-                  src={lightbox.imgSrc}
-                  alt={lightbox.seoAlt}
-                  fill
-                  className="object-contain"
-                  sizes="90vw"
-                />
-              ) : (
-                <div
-                  className="absolute inset-0"
-                  style={{ background: GRADIENTS[GALLERY.indexOf(lightbox) % GRADIENTS.length] }}
-                  role="img"
-                  aria-label={lightbox.seoAlt}
-                />
-              )}
+            <div className="relative w-full aspect-square sm:aspect-[4/3]">
+              <Image
+                key={lightboxItem.id}
+                src={lightboxItem.src}
+                alt={lightboxItem.alt}
+                fill
+                className="object-contain lightbox-img-anim"
+                sizes="(max-width:640px) 90vw, 80vw"
+                priority
+              />
             </div>
-            <div className="mt-3 px-1">
-              <p className="text-gold-light font-display text-lg">{lightbox.caption}</p>
-              <p className="text-gold/45 text-xs font-sans mt-0.5 line-clamp-2">{lightbox.seoAlt}</p>
+            <div className="mt-3 px-1 flex items-start justify-between gap-4">
+              <p className="text-gold-light font-display text-base sm:text-lg leading-snug">
+                {lightboxItem.caption}
+              </p>
+              <span className="text-white/20 text-[10px] font-sans uppercase tracking-widest sm:hidden flex-shrink-0 mt-1">
+                Swipe to navigate
+              </span>
             </div>
           </div>
+
+          {/* Next */}
+          <button
+            className="absolute right-1 sm:right-4 z-10 w-12 h-12 flex items-center justify-center text-white/40 hover:text-white transition-colors rounded-full hover:bg-white/10"
+            onClick={(e) => { e.stopPropagation(); goNext() }}
+            aria-label="Next photo"
+          >
+            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
         </div>
       )}
     </section>

@@ -23,7 +23,7 @@ const TABS: Tab[] = [
   { id: 'menu', label: 'Menu', Component: MenuSection },
   { id: 'about', label: 'About Us', Component: AboutSection },
   { id: 'contact', label: 'Find Us', Component: LocationSection },
-  // { id: 'gallery', label: 'Gallery', Component: GallerySection },  // hidden until real photos
+  { id: 'gallery', label: 'Gallery', Component: GallerySection },
 ]
 
 const TAB_TITLES: Record<TabId, string> = {
