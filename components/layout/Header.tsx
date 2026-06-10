@@ -10,11 +10,13 @@ interface HeaderProps {
   tabs: Tab[]
 }
 
-const NAV_TAB_IDS: TabId[] = ['menu', 'about', 'contact', 'gallery']
+const NAV_TAB_IDS: TabId[] = ['menu', 'about', 'gallery', 'contact']
 
 export default function Header({ activeTab, onTabChange, tabs }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const navTabs = tabs.filter((t) => NAV_TAB_IDS.includes(t.id))
+  const navTabs = tabs
+    .filter((t) => NAV_TAB_IDS.includes(t.id))
+    .sort((a, b) => NAV_TAB_IDS.indexOf(a.id) - NAV_TAB_IDS.indexOf(b.id))
 
   return (
     <header
