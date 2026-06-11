@@ -120,6 +120,7 @@ export default function LocationSection({ onTabChange }: Props) {
             rel="noopener noreferrer"
             className="btn-cta w-full mb-3"
             aria-label="Order directly from Magnolia Thai"
+            data-track="order_click"
           >
             Order Online
           </a>
@@ -132,6 +133,7 @@ export default function LocationSection({ onTabChange }: Props) {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 bg-bg-secondary border border-gold-muted rounded-lg px-5 py-4 text-gold/80 font-sans font-semibold text-sm hover:border-gold/50 hover:text-gold-light transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/40"
                 aria-label={`Order from Magnolia Thai on ${platform.name}`}
+                data-track="order_click"
               >
                 <span
                   className="inline-block w-2 h-2 rounded-full flex-shrink-0"
@@ -162,6 +164,7 @@ export default function LocationSection({ onTabChange }: Props) {
               href="tel:+15036590149"
               className="flex items-center gap-2 text-gold/75 hover:text-gold transition-colors font-sans text-sm"
               aria-label="Call Magnolia Thai Restaurant"
+              data-track="call_click"
             >
               <span className="text-gold/40 text-xs" aria-hidden="true">✆</span>
               (503) 659-0149

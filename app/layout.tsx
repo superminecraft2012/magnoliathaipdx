@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Cinzel, Lato } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { structuredData } from '@/lib/structured-data'
 
@@ -96,7 +97,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <Script
+          strategy="afterInteractive"
+          data-site="magnolia-thai-pdx"
+          src="https://analytics.dineably.com/public/tracker.js?site=magnolia-thai-pdx"
+        />
+      </body>
     </html>
   )
 }

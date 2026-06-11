@@ -57,6 +57,7 @@ export default function Header({ activeTab, onTabChange, tabs }: HeaderProps) {
               aria-controls={`tab-panel-${tab.id}`}
               onClick={() => onTabChange(tab.id)}
               className="nav-link"
+              {...(tab.id === 'menu' ? { 'data-track': 'menu_click' } : {})}
             >
               {tab.label}
             </button>
@@ -114,6 +115,7 @@ export default function Header({ activeTab, onTabChange, tabs }: HeaderProps) {
                 'px-8 py-3.5 text-left nav-link text-sm hover:bg-bg-tertiary',
                 activeTab === tab.id ? 'text-gold-light bg-bg-tertiary' : '',
               ].join(' ')}
+              {...(tab.id === 'menu' ? { 'data-track': 'menu_click' } : {})}
             >
               {tab.label}
             </button>

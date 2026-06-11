@@ -121,6 +121,7 @@ export default function ReservationsSection({ onTabChange }: Props) {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 bg-bg-secondary border border-gold-muted rounded-lg px-5 py-4 text-gold/80 font-sans font-semibold text-sm hover:border-gold/50 hover:text-gold-light transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/40"
                 aria-label={`Order from Magnolia Thai on ${platform.name}`}
+                data-track="order_click"
               >
                 <span
                   className="inline-block w-2 h-2 rounded-full flex-shrink-0"
@@ -140,7 +141,7 @@ export default function ReservationsSection({ onTabChange }: Props) {
           <div className="gold-divider mt-5 max-w-xs mx-auto" />
           <p className="text-gold/55 text-sm font-sans mt-4 font-light">
             For parties of 9 or more, please call us on{' '}
-            <a href="tel:+15036590149" className="text-gold hover:text-gold-light transition-colors">
+            <a href="tel:+15036590149" className="text-gold hover:text-gold-light transition-colors" data-track="call_click">
               (503) 659-0149
             </a>
           </p>

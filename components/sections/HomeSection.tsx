@@ -67,6 +67,7 @@ export default function HomeSection({ onTabChange }: Props) {
                 onClick={() => onTabChange?.('contact')}
                 className="btn-cta text-[0.65rem] font-extrabold px-4 py-3 flex-1"
                 aria-label="Order delivery or pickup from Magnolia Thai Restaurant"
+                data-track="order_click"
               >
                 Order Online
               </button>
@@ -74,6 +75,7 @@ export default function HomeSection({ onTabChange }: Props) {
                 onClick={() => onTabChange?.('menu')}
                 className="btn-ghost text-[0.65rem] font-extrabold px-4 py-3 flex-1"
                 aria-label="View Magnolia Thai Restaurant's full menu"
+                data-track="menu_click"
               >
                 View Menu
               </button>
@@ -107,6 +109,7 @@ export default function HomeSection({ onTabChange }: Props) {
                 onClick={() => onTabChange?.('contact')}
                 className="btn-cta text-[1rem] font-extrabold px-14 py-5"
                 aria-label="Order delivery or pickup from Magnolia Thai Restaurant"
+                data-track="order_click"
               >
                 Order Online
               </button>
@@ -114,6 +117,7 @@ export default function HomeSection({ onTabChange }: Props) {
                 onClick={() => onTabChange?.('menu')}
                 className="btn-ghost text-[1rem] font-extrabold px-14 py-5"
                 aria-label="View Magnolia Thai Restaurant's full menu"
+                data-track="menu_click"
               >
                 View Menu
               </button>
@@ -154,6 +158,7 @@ export default function HomeSection({ onTabChange }: Props) {
                 href="tel:+15036590149"
                 className="block text-gold/70 text-xs sm:text-sm font-sans hover:text-gold transition-colors"
                 aria-label="Call Magnolia Thai Restaurant on (503) 659-0149"
+                data-track="call_click"
               >
                 (503) 659-0149
               </a>
