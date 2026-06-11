@@ -41,14 +41,13 @@ const ALL_ITEMS: GalleryItem[] = [
   { id: 'dish-24', src: '/menu/24.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
   { id: 'dish-25', src: '/menu/25.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
   { id: 'dish-26', src: '/menu/26.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-27', src: '/menu/27.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
   { id: 'dish-28', src: '/menu/28.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
 ]
 
 const TRACKS = [
   { items: ALL_ITEMS.slice(0, 10),  startIdx: 0,  duration: 55, dir: 'left'  },
   { items: ALL_ITEMS.slice(10, 19), startIdx: 10, duration: 62, dir: 'right' },
-  { items: ALL_ITEMS.slice(19, 28), startIdx: 19, duration: 55, dir: 'left'  },
+  { items: ALL_ITEMS.slice(19, 27), startIdx: 19, duration: 55, dir: 'left'  },
 ] as const
 
 // ── Individual photo tile ────────────────────────────────────────────────────
