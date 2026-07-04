@@ -3,6 +3,7 @@ import { Cinzel, Lato } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { structuredData } from '@/lib/structured-data'
+import ClosedJuly4Popup from '@/components/ClosedJuly4Popup'
 
 const cinzel = Cinzel({
   subsets: ['latin'],
@@ -99,6 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased">
         {children}
+        <ClosedJuly4Popup />
         <Script
           strategy="afterInteractive"
           data-site="magnolia-thai-pdx"
