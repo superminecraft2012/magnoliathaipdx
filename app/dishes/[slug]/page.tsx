@@ -33,7 +33,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       title: dish.title,
       description: dish.description,
       url: `${SITE_ORIGIN}/dishes/${dish.slug}`,
-      images: [{ url: dish.image.src, alt: dish.image.alt }],
+      ...(dish.image ? { images: [{ url: dish.image.src, alt: dish.image.alt }] } : {}),
     },
   }
 }
@@ -78,7 +78,7 @@ export default function DishPage({ params }: { params: { slug: string } }) {
         <h1 className="section-heading text-3xl sm:text-4xl md:text-5xl mt-6">{dish.h1}</h1>
         <div className="gold-divider mt-4 mb-8 max-w-[140px]" />
 
-        <div className="grid md:grid-cols-[1.1fr_1fr] gap-8 items-start">
+        <div className={dish.image ? 'grid md:grid-cols-[1.1fr_1fr] gap-8 items-start' : 'max-w-2xl'}>
           <div>
             {/* How WE make it — quoted from the live menu data */}
             <p className="text-gold/80 text-[16px] font-sans leading-relaxed">
@@ -101,16 +101,28 @@ export default function DishPage({ params }: { params: { slug: string } }) {
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] rounded-lg overflow-hidden border border-gold-muted">
-            <Image
-              src={dish.image.src}
-              alt={dish.image.alt}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 45vw"
-              priority
-            />
-          </div>
+          {/*
+            Every dish photo is a square cut-out on transparency. Cropping one
+            into a 4:3 frame with object-cover sliced the plate, so the plate
+            now sits whole on the page's own ground. drop-shadow follows the
+            alpha silhouette rather than a rectangle.
+
+            Rendered only when a verified photograph of THIS dish exists — an
+            image on a dish page reads as "this is that dish".
+          */}
+          {dish.image && (
+            <div className="relative w-full max-w-[400px] mx-auto md:mx-0 aspect-square">
+              <Image
+                src={dish.image.src}
+                alt={dish.image.alt}
+                fill
+                className="object-contain"
+                style={{ filter: 'drop-shadow(0 16px 28px rgba(0,0,0,0.55))' }}
+                sizes="(max-width: 768px) 90vw, 400px"
+                priority
+              />
+            </div>
+          )}
         </div>
 
         <section aria-labelledby="about-heading" className="mt-14">
