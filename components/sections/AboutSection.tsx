@@ -63,7 +63,7 @@ export default function AboutSection({ onTabChange }: Props) {
             <p className="anim-fade-up delay-100 text-gold/45 text-[11px] uppercase tracking-[0.3em] font-sans mb-4">
               Est. 2010 · Milwaukie, Oregon
             </p>
-            <h1 className="anim-fade-up delay-200 section-heading text-3xl md:text-4xl mb-6">Our Story</h1>
+            <h2 className="anim-fade-up delay-200 section-heading text-3xl md:text-4xl mb-6">Our Story</h2>
             <div className="anim-fade-up delay-300 space-y-4 text-gold/70 text-[15px] font-sans font-light leading-relaxed">
               <p>
                 Magnolia Thai was born from a simple, heartfelt mission: to bring the true
@@ -94,7 +94,7 @@ export default function AboutSection({ onTabChange }: Props) {
         {/* ── Values ── */}
         <div className="mb-16">
           <div className="text-center mb-8">
-            <h2 className="anim-fade-up section-heading text-2xl md:text-3xl">The Magnolia Promise</h2>
+            <h3 className="anim-fade-up section-heading text-2xl md:text-3xl">The Magnolia Promise</h3>
             <div className="gold-divider mt-4 max-w-xs mx-auto anim-line delay-200" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 anim-stagger">
@@ -105,7 +105,7 @@ export default function AboutSection({ onTabChange }: Props) {
                 aria-label={v.alt}
               >
                 <div className="text-gold text-2xl mb-3 font-display" aria-hidden="true">{v.icon}</div>
-                <h3 className="font-display text-gold-light text-base mb-2">{v.title}</h3>
+                <h4 className="font-display text-gold-light text-base mb-2">{v.title}</h4>
                 <p className="text-gold/55 text-[13px] font-sans font-light leading-relaxed">{v.body}</p>
               </div>
             ))}

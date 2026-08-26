@@ -1,9 +1,20 @@
 import { Suspense } from 'react'
 import TabsClient from '@/components/TabsClient'
+import { structuredData } from '@/lib/structured-data'
 
 export default function Home() {
   return (
-    <Suspense
+    <>
+      {/*
+        The ONE canonical business entity, rendered on the home page only.
+        Landing pages reference it by @id instead of redeclaring it — a second
+        Restaurant node for the same address would compete with this one.
+      */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <Suspense
       fallback={
         <div className="h-[100dvh] flex items-center justify-center bg-bg-primary">
           <div className="text-center">
@@ -15,7 +26,8 @@ export default function Home() {
         </div>
       }
     >
-      <TabsClient />
-    </Suspense>
+        <TabsClient />
+      </Suspense>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { ALLDAY_CATEGORIES, PROTEIN_OPTIONS, type MenuCategory } from '@/lib/menu-data'
 import type { TabId } from '@/components/TabsClient'
 
@@ -39,7 +40,7 @@ function MenuItem({ item }: { item: MenuCategory['items'][0] }) {
               #{item.itemNumber}
             </span>
           )}
-          <h3 className="font-display text-gold-light text-sm leading-tight">{item.name}</h3>
+          <h4 className="font-display text-gold-light text-sm leading-tight">{item.name}</h4>
           {item.isSignature && (
             <span className="bg-gold/15 text-gold text-[9px] uppercase tracking-widest px-1.5 py-0.5 font-sans font-bold rounded-sm flex-shrink-0">
               Signature
@@ -78,7 +79,9 @@ export default function MenuSection({ onTabChange }: Props) {
 
   const categories = ALLDAY_CATEGORIES
   const filters: { id: FilterId; label: string }[] = categories.map((c) => ({ id: c.id, label: c.name }))
-  const visibleCategories = categories.filter((c) => c.id === activeFilter)
+  // Every category is rendered into the DOM; the filter only controls which one
+  // is *displayed*. Unmounting the inactive panels put 9 of 98 menu items in the
+  // HTML — 90% of the menu was invisible to crawlers.
 
   return (
     <section className="min-h-full bg-bg-primary" aria-label="Magnolia Thai Restaurant menu">
@@ -87,7 +90,7 @@ export default function MenuSection({ onTabChange }: Props) {
         <div className="px-4 sm:px-6 md:px-12 py-4 sm:py-5">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
             <div>
-              <h1 className="anim-slide-left section-heading text-xl sm:text-2xl md:text-3xl">Our Menu</h1>
+              <h2 className="anim-slide-left section-heading text-xl sm:text-2xl md:text-3xl">Our Menu</h2>
               <p className="anim-fade-up delay-100 text-gold/45 text-[11px] sm:text-[12px] font-sans uppercase tracking-widest mt-1">
                 Authentic Thai cuisine crafted with tradition
               </p>
@@ -132,12 +135,12 @@ export default function MenuSection({ onTabChange }: Props) {
 
       {/* Menu content */}
       <div className="px-4 sm:px-6 md:px-12 py-6 sm:py-8 space-y-10 sm:space-y-12 anim-fade-up">
-        {visibleCategories.map((category) => (
-          <div key={category.id}>
+        {categories.map((category) => (
+          <div key={category.id} hidden={category.id !== activeFilter}>
             <div className="mb-4">
-              <h2 className="anim-slide-left font-display text-gold-light text-2xl uppercase tracking-wider">
+              <h3 className="anim-slide-left font-display text-gold-light text-2xl uppercase tracking-wider">
                 {category.name}
-              </h2>
+              </h3>
               <p className="anim-fade-up delay-100 text-gold/45 text-sm font-sans mt-1">{category.description}</p>
               <div className="gold-divider mt-4 anim-line delay-200" />
             </div>
@@ -150,9 +153,51 @@ export default function MenuSection({ onTabChange }: Props) {
           </div>
         ))}
 
+        {/* Contextual links to the search landing pages. Phase 6: a page with no
+            internal links is an orphan — indexed, but crawled rarely and ranked
+            weakly. These are deliberately NOT in the navbar (see SEO.md). */}
+        <div className="border border-gold-muted rounded-lg p-5 bg-bg-secondary">
+          <h3 className="font-display text-gold-light text-base mb-2">Dish guides</h3>
+          <p className="text-gold/60 text-sm font-sans mb-3">
+            More about the dishes we are known for, how they differ and what to order.
+          </p>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-[13px] font-sans">
+            <li>
+              <Link href="/thai-khao-soi-portland" className="text-gold/75 hover:text-gold underline underline-offset-2">
+                Khao Soi in Portland, Oregon
+              </Link>
+            </li>
+            <li>
+              <Link href="/dishes/pad-thai" className="text-gold/75 hover:text-gold underline underline-offset-2">
+                Pad Thai in Portland
+              </Link>
+            </li>
+            <li>
+              <Link href="/dishes/pad-see-ew" className="text-gold/75 hover:text-gold underline underline-offset-2">
+                Pad See Ew in Portland
+              </Link>
+            </li>
+            <li>
+              <Link href="/dishes/drunken-noodles" className="text-gold/75 hover:text-gold underline underline-offset-2">
+                Drunken Noodles in Portland
+              </Link>
+            </li>
+            <li>
+              <Link href="/dishes/pineapple-fried-rice" className="text-gold/75 hover:text-gold underline underline-offset-2">
+                Pineapple Fried Rice in Portland
+              </Link>
+            </li>
+            <li>
+              <Link href="/dishes" className="text-gold/75 hover:text-gold underline underline-offset-2">
+                All signature dishes
+              </Link>
+            </li>
+          </ul>
+        </div>
+
         {/* Protein options note */}
         <div className="border border-gold-muted rounded-lg p-5 bg-bg-secondary">
-          <h3 className="font-display text-gold-light text-base mb-2">Protein Options</h3>
+          <h4 className="font-display text-gold-light text-base mb-2">Protein Options</h4>
           <p className="text-gold/60 text-sm font-sans mb-3">
             Dishes marked &ldquo;Choose protein&rdquo; are available with:
           </p>

@@ -169,7 +169,9 @@ export const ALLDAY_CATEGORIES: MenuCategory[] = [
         tags: ['chef', 'noodle', 'curry'],
         seoAlt: 'Tofu Khao Soi — vegetarian Northern Thai curry noodles at Magnolia Thai Restaurant',
         spice: 2,
-        isVegan: true,
+        // NOT vegan: this dish's own description lists egg noodles. The flag
+        // was inference and contradicted the record it sat on. Every other
+        // dietary flag in this file is still unverified — see SEO.md.
       },
       {
         id: 'tempura-khao-soi',

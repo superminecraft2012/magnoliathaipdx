@@ -73,13 +73,51 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+
+    /*
+      Horizontal containment.
+
+      This clips LAYOUT overflow only. Pinch-to-zoom pans the *visual* viewport,
+      which is a separate mechanism — a zoomed-in reader can still pan to every
+      edge of the page. Zoom is never disabled: the viewport meta in layout.tsx
+      deliberately carries no `maximum-scale` and no `user-scalable=no`.
+
+      `clip`, not `hidden`: `hidden` would make this a scroll container and break
+      `position: sticky` on the landing-page header.
+    */
+    overflow-x: clip;
+    overscroll-behavior-x: none;
   }
 
   body {
     @apply bg-bg-primary text-gold font-sans;
-    /* Lock the body — tabs manage their own scroll */
-    overflow: hidden;
-    height: 100dvh;
+    overflow-x: clip;
+    /*
+      The body used to be hard-locked to `overflow: hidden; height: 100dvh` for
+      the tabbed SPA. That lock also applied to the standalone landing pages,
+      where it truncated the document: on a 390px viewport the Pad Thai page is
+      3791px tall but could only scroll to 1789px, putting the footer and the
+      Find-us block out of reach.
+
+      The SPA does its own locking on its root element (see TabsClient), so the
+      body only needs a floor.
+    */
+    min-height: 100dvh;
+  }
+
+  /* Nothing may render wider than its column. */
+  img,
+  video,
+  svg,
+  canvas,
+  iframe {
+    max-width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   /* Thin gold scrollbar inside tab panels */

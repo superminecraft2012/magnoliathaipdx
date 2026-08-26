@@ -33,7 +33,7 @@ export default function Header({ activeTab, onTabChange, tabs }: HeaderProps) {
         >
           <div className="relative w-44 h-14 flex-shrink-0">
             <Image
-              src="/images/newlogo.png"
+              src="/images/newlogo.webp"
               alt="Magnolia Thai Restaurant — authentic Thai cuisine in Milwaukie, Oregon"
               fill
               className="object-contain object-left"

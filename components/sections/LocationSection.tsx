@@ -1,58 +1,67 @@
 'use client'
 
 import type { TabId } from '@/components/TabsClient'
+import { BUSINESS, DELIVERY_PLATFORMS, HOURS, ORDER_URL } from '@/lib/site'
 
 interface Props {
   onTabChange?: (tab: TabId) => void
 }
 
-const HOURS = [
-  { days: 'Monday – Thursday', open: '11:00', close: '21:00', lunch: '11:00–15:00', dinner: '16:00–21:00' },
-  { days: 'Friday', open: '11:00', close: '22:00', lunch: '11:00–15:00', dinner: '16:00–22:00' },
-  { days: 'Saturday', open: '12:00', close: '22:00', lunch: null, dinner: '12:00–22:00' },
-  { days: 'Sunday', open: '12:00', close: '21:00', lunch: null, dinner: '12:00–21:00' },
-]
 
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+function toMins(hhmm: string) {
+  const [h, m] = hhmm.split(':').map(Number)
+  return h * 60 + m
+}
+
+function to12h(hhmm: string) {
+  const [h, m] = hhmm.split(':').map(Number)
+  const period = h >= 12 ? 'PM' : 'AM'
+  const hour = h % 12 === 0 ? 12 : h % 12
+  return m === 0 ? `${hour}:00 ${period}` : `${hour}:${String(m).padStart(2, '0')} ${period}`
+}
+
+/** Service periods for a given JS day index, read from the shared HOURS table. */
+function periodsFor(day: number) {
+  const name = DAY_NAMES[day]
+  return HOURS.find((row) => row.schemaDays.includes(name))?.service ?? []
+}
+
+/**
+ * Live open/closed status, derived entirely from the shared HOURS constant in
+ * lib/site.ts. Previously this hard-coded a third copy of the schedule
+ * alongside the visible table and the JSON-LD; all three now share one source.
+ */
 function isOpen(): { open: boolean; label: string } {
   const now = new Date()
   const day = now.getDay()
   const mins = now.getHours() * 60 + now.getMinutes()
+  const today = periodsFor(day)
 
-  if (day >= 1 && day <= 4) {
-    const lunch = mins >= 11 * 60 && mins < 15 * 60
-    const dinner = mins >= 16 * 60 && mins < 21 * 60
-    if (lunch) return { open: true, label: 'Open now · Lunch closes at 3:00 PM' }
-    if (dinner) return { open: true, label: 'Open now · Closes at 9:00 PM' }
-    if (mins < 11 * 60) return { open: false, label: 'Opens at 11:00 AM' }
-    if (mins >= 15 * 60 && mins < 16 * 60) return { open: false, label: 'Reopens at 4:00 PM' }
-    return { open: false, label: 'Closed · Opens tomorrow at 11:00 AM' }
+  const current = today.find((p) => mins >= toMins(p.opens) && mins < toMins(p.closes))
+  if (current) {
+    return { open: true, label: `Open now · Closes at ${to12h(current.closes)}` }
   }
-  if (day === 5) {
-    const lunch = mins >= 11 * 60 && mins < 15 * 60
-    const dinner = mins >= 16 * 60 && mins < 22 * 60
-    if (lunch) return { open: true, label: 'Open now · Lunch closes at 3:00 PM' }
-    if (dinner) return { open: true, label: 'Open now · Closes at 10:00 PM' }
-    if (mins < 11 * 60) return { open: false, label: 'Opens at 11:00 AM' }
-    if (mins >= 15 * 60 && mins < 16 * 60) return { open: false, label: 'Reopens at 4:00 PM' }
-    return { open: false, label: 'Closed · Opens Saturday at 12:00 PM' }
+
+  const nextToday = today.find((p) => mins < toMins(p.opens))
+  if (nextToday) {
+    const verb = today.some((p) => mins >= toMins(p.closes)) ? 'Reopens' : 'Opens'
+    return { open: false, label: `${verb} at ${to12h(nextToday.opens)}` }
   }
-  if (day === 6) {
-    const open = mins >= 12 * 60 && mins < 22 * 60
-    return open
-      ? { open: true, label: 'Open now · Closes at 10:00 PM' }
-      : { open: false, label: mins < 12 * 60 ? 'Opens at 12:00 PM' : 'Closed · Opens Sunday at 12:00 PM' }
+
+  // Closed for the rest of today — find the next day that has any service.
+  for (let i = 1; i <= 7; i++) {
+    const d = (day + i) % 7
+    const periods = periodsFor(d)
+    if (periods.length) {
+      const when = i === 1 ? 'tomorrow' : DAY_NAMES[d]
+      return { open: false, label: `Closed · Opens ${when} at ${to12h(periods[0].opens)}` }
+    }
   }
-  const open = mins >= 12 * 60 && mins < 21 * 60
-  return open
-    ? { open: true, label: 'Open now · Closes at 9:00 PM' }
-    : { open: false, label: mins < 12 * 60 ? 'Opens at 12:00 PM' : 'Closed · Opens Monday at 11:00 AM' }
+  return { open: false, label: 'Closed' }
 }
 
-const ORDER_PLATFORMS = [
-  { name: 'UberEats', href: 'https://www.ubereats.com/store/magnolia-thai-restaurant/gHxL-23vRW2gkHHSCTKZEg', color: '#06C167' },
-  { name: 'DoorDash', href: 'https://www.doordash.com/store/magnolia-thai-restaurant-milwaukie-26242298/34149152/', color: '#FF3008' },
-  { name: 'Grubhub', href: 'https://www.grubhub.com/restaurant/magnolia-thai-restaurant-10574-se-32nd-ave-milwaukie/7313120', color: '#F63440' },
-]
 
 export default function LocationSection({ onTabChange }: Props) {
   const status = isOpen()
@@ -78,7 +87,7 @@ export default function LocationSection({ onTabChange }: Props) {
         />
 
         <a
-          href="https://www.google.com/maps/place/Magnolia+Thai+Restaurant/@45.4492,-122.6364,17z"
+          href={BUSINESS.mapUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="absolute bottom-4 right-4 btn-ghost text-[10px] px-4 py-2 bg-bg-primary/80 backdrop-blur-sm z-10"
@@ -105,7 +114,7 @@ export default function LocationSection({ onTabChange }: Props) {
           </span>
         </div>
 
-        <h1 className="anim-fade-up delay-100 section-heading text-3xl md:text-4xl mb-1">Find Us</h1>
+        <h2 className="anim-fade-up delay-100 section-heading text-3xl md:text-4xl mb-1">Find Us</h2>
         <div className="gold-divider max-w-[120px] mt-3 mb-7 anim-line delay-200" />
 
         {/* Order Online */}
@@ -115,7 +124,7 @@ export default function LocationSection({ onTabChange }: Props) {
             Order delivery or pickup through your preferred platform
           </p>
           <a
-            href="https://www.toasttab.com/local/order/magnoliathaipdx"
+            href={ORDER_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-cta w-full mb-3"
@@ -125,7 +134,7 @@ export default function LocationSection({ onTabChange }: Props) {
             Order Online
           </a>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 anim-stagger">
-            {ORDER_PLATFORMS.map((platform) => (
+            {DELIVERY_PLATFORMS.map((platform) => (
               <a
                 key={platform.name}
                 href={platform.href}
@@ -152,8 +161,10 @@ export default function LocationSection({ onTabChange }: Props) {
           <p className="font-display text-gold-light text-xl leading-tight">
             Magnolia Thai Restaurant
           </p>
-          <p className="text-gold/70 text-sm font-sans mt-1">10574 SE 32nd Ave</p>
-          <p className="text-gold/70 text-sm font-sans">Milwaukie, OR 97222</p>
+          <p className="text-gold/70 text-sm font-sans mt-1">{BUSINESS.streetAddress}</p>
+          <p className="text-gold/70 text-sm font-sans">
+            {BUSINESS.addressLocality}, {BUSINESS.addressRegion} {BUSINESS.postalCode}
+          </p>
         </address>
 
         {/* Contact */}
@@ -167,7 +178,7 @@ export default function LocationSection({ onTabChange }: Props) {
               data-track="call_click"
             >
               <span className="text-gold/40 text-xs" aria-hidden="true">✆</span>
-              (503) 659-0149
+              {BUSINESS.telephoneDisplay}
             </a>
             <a
               href="https://www.facebook.com/Magnoliathaipdx/"
@@ -191,11 +202,11 @@ export default function LocationSection({ onTabChange }: Props) {
                 <div>
                   <p className="text-gold/75 text-sm font-sans">{h.days}</p>
                   <p className="text-gold/35 text-[11px] font-sans">
-                    {h.lunch ? `Lunch ${h.lunch} · Dinner ${h.dinner}` : `Open ${h.dinner}`}
+                    {h.service.map((p) => `${p.label} ${p.opens}–${p.closes}`).join(' · ')}
                   </p>
                 </div>
                 <p className="text-gold/60 text-sm font-sans text-right">
-                  {h.open} – {h.close}
+                  {h.service[0].opens} – {h.service[h.service.length - 1].closes}
                 </p>
               </div>
             ))}

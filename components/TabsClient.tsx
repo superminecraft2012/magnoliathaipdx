@@ -85,7 +85,7 @@ export default function TabsClient() {
           <div className="flex flex-col items-center">
             <div className="splash-logo relative w-36 h-36 sm:w-44 sm:h-44 mb-7 opacity-[0.15]">
               <Image
-                src="/images/logonotext.png"
+                src="/images/logonotext.webp"
                 alt=""
                 fill
                 className="object-contain"
@@ -94,9 +94,9 @@ export default function TabsClient() {
               />
             </div>
             <div className="splash-line w-20 h-px bg-gold/50 mb-5" />
-            <h1 className="splash-title font-display text-gold-light text-5xl sm:text-6xl uppercase tracking-[0.15em]">
+            <p className="splash-title font-display text-gold-light text-5xl sm:text-6xl uppercase tracking-[0.15em]">
               Magnolia
-            </h1>
+            </p>
             <p className="splash-subtitle text-gold/50 text-sm sm:text-base uppercase tracking-[0.35em] font-sans mt-2">
               Thai Restaurant
             </p>
