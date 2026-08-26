@@ -38,7 +38,13 @@ export interface DishPage {
   faqs: Faq[]
   /** slugs of 2-3 related dish pages */
   related: string[]
-  image: { src: string; alt: string }
+  /**
+   * Optional. A photo on a dish page reads as "this is that dish", so a page
+   * only gets one when a verified photograph of THAT dish exists. Every image
+   * below was checked by opening the file — the alt text that shipped with
+   * these photos described a different dish in all 12 cases.
+   */
+  image?: { src: string; alt: string }
 }
 
 /** Look an item up in the live menu. Throws at build time if it ever moves. */
@@ -100,8 +106,8 @@ export const DISH_PAGES: DishPage[] = [
     ],
     related: ['pad-see-ew', 'drunken-noodles', 'pineapple-fried-rice'],
     image: {
-      src: '/menu/5.webp',
-      alt: 'Pad Thai — stir-fried rice noodles with shrimp, egg, bean sprouts and ground peanuts',
+      src: '/menu/8.webp',
+      alt: 'Pad Thai Duck at Magnolia Thai — Pad Thai rice noodles with crispy roasted duck, bean sprouts, ground peanuts and lime',
     },
   },
   {
@@ -169,10 +175,9 @@ export const DISH_PAGES: DishPage[] = [
       },
     ],
     related: ['pad-see-ew', 'pad-thai', 'pineapple-fried-rice'],
-    image: {
-      src: '/menu/3.webp',
-      alt: 'Drunken Noodles — wide flat rice noodles stir fried with shrimp, beef and bell peppers',
-    },
+    // No image: the photo previously used here (/menu/3.webp) is fried spring
+    // rolls, and there is no photograph of Drunken Noodles in the library.
+    // Showing a different dish is worse than showing none. See SEO.md.
   },
   {
     slug: 'pineapple-fried-rice',
@@ -205,8 +210,8 @@ export const DISH_PAGES: DishPage[] = [
     ],
     related: ['pad-thai', 'pad-see-ew', 'drunken-noodles'],
     image: {
-      src: '/images/food/PineappleFriedRice.webp',
-      alt: 'Pineapple Fried Rice — Thai fried rice with pineapple, cashew nuts, peas and carrots',
+      src: '/menu/6.webp',
+      alt: 'Pineapple fried rice at Magnolia Thai — Thai fried rice with pineapple, tofu, peas, carrot, tomato and cucumber',
     },
   },
 ]

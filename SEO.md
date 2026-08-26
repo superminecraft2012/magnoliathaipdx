@@ -59,7 +59,10 @@ of `TabsClient.tsx`. No page was built for any unverified service.
 | 9 | `Tofu Khao Soi` flagged vegan; its own description says **egg noodles** | 1 | **Fixed** — flag removed |
 | 10 | Dietary flags contradict the printed menu | **27 items** | **ESCALATED** — not guessed |
 | 11 | Prices contradict the printed menu | **26 items** | **ESCALATED** — not guessed |
-| 14 | Gallery alt text: 15 of 27 photos shared one placeholder string | 15 | **Fixed** — written from the photographs; confirm the two drink identifications |
+| 14 | Gallery alt text: 15 of 27 photos shared one placeholder string | 15 | **Fixed** — written from the photographs |
+| 17 | **Every one of the 12 remaining gallery alts named the wrong dish.** `/menu/5.webp` (cashew-nut stir-fry) was captioned "Pad Thai"; `/menu/3.webp` (spring rolls) was captioned "Drunken Noodles"; `/menu/8.webp` (the real Pad Thai Duck) was captioned "Crispy Spring Rolls". All 27 have now been verified by opening each file. | 12 | **Fixed** |
+| 18 | Dish photos were cropped 4:3 / 21:9 with `object-cover`, slicing the plate. All source images are square cut-outs on transparency. | all | **Fixed** — contained, never cropped |
+| 19 | No photograph of Drunken Noodles exists in the library. The page shipped with a spring-roll photo. | 1 | **Fixed** — page now has no image; see open question 8 |
 | 15 | OG/Twitter card image `og-magnolia-thai.jpg` returned 404 | live + local | **Fixed** — generated 1200×630 from the hero |
 | 16 | 18 MB PNG in JSON-LD `image[]`, fetched raw by Google | 18 MB | **Fixed** — WebP 1:1/4:3/16:9 set, 132 KB |
 | 12 | Duplicate deployment `magnoliathai.netlify.app` serving an older build, no canonical | 1 | **ESCALATED** — Open Question 3 |
@@ -220,6 +223,14 @@ the page renders, so schema and visible content cannot drift.
 
 7. **Do you cater, host private events, or take reservations?** No page was built for any
    of these.
+
+8. **Photography gaps.** There is no photograph of **Drunken Noodles**, so that page ships
+   without an image rather than showing a different dish. `Pad See Ew` and the two
+   `/images/food/*` shots are only 500x500 (the rest are 2048x2048), so they are soft on
+   retina screens. Both are worth a short photo session.
+
+9. **Confirm two drink identifications.** `/menu/22.webp` and `/menu/24.webp` were read as
+   Thai iced coffee; they could be iced tea. Everything else was unambiguous.
 
 ---
 

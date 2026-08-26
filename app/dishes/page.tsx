@@ -88,23 +88,48 @@ export default function DishesHub() {
           <OrderActions />
         </div>
 
+        {/*
+          Every dish photo is a square cut-out on transparency, so the card
+          images are contained, never cropped. The feature card runs the plate
+          beside its copy on wide screens instead of letterboxing it into 21:9.
+        */}
         <ul className="grid sm:grid-cols-2 gap-5 mt-12">
           {cards.map((c) => (
             <li key={c.href} className={c.feature ? 'sm:col-span-2' : undefined}>
               <Link
                 href={c.href}
-                className="group block border border-gold-muted rounded-lg overflow-hidden hover:border-gold/50 transition-colors h-full"
+                className={[
+                  'group block border border-gold-muted rounded-lg overflow-hidden',
+                  'hover:border-gold/50 transition-colors h-full',
+                  c.feature ? 'sm:flex sm:items-center' : '',
+                ].join(' ')}
               >
-                <div className={`relative ${c.feature ? 'aspect-[16/10] sm:aspect-[21/9]' : 'aspect-[4/3]'}`}>
-                  <Image
-                    src={c.image.src}
-                    alt={c.image.alt}
-                    fill
-                    className="object-cover"
-                    sizes={c.feature ? '(max-width: 640px) 100vw, 720px' : '(max-width: 640px) 100vw, 360px'}
-                  />
+                <div
+                  className={[
+                    'relative bg-bg-secondary flex-shrink-0 aspect-square',
+                    c.feature ? 'sm:w-[300px] md:w-[340px]' : '',
+                  ].join(' ')}
+                >
+                  {c.image ? (
+                    <Image
+                      src={c.image.src}
+                      alt={c.image.alt}
+                      fill
+                      className="object-contain p-3"
+                      style={{ filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.45))' }}
+                      sizes="(max-width: 640px) 90vw, 340px"
+                    />
+                  ) : (
+                    /* No verified photograph of this dish exists yet. A
+                       typographic tile is honest; another dish's plate is not. */
+                    <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
+                      <span className="font-display text-gold/30 text-2xl uppercase tracking-[0.2em] leading-snug">
+                        {c.name}
+                      </span>
+                    </div>
+                  )}
                 </div>
-                <div className="p-5">
+                <div className="p-5 sm:p-6">
                   <h2 className="font-display text-gold-light text-xl sm:text-lg group-hover:text-gold transition-colors">
                     {c.name}
                   </h2>

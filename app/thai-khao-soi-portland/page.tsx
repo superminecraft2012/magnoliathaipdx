@@ -111,13 +111,15 @@ export default function KhaoSoiPage() {
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] rounded-lg overflow-hidden border border-gold-muted">
+          {/* Square cut-out — contained, never cropped. See dishes/[slug]. */}
+          <div className="relative w-full max-w-[400px] mx-auto md:mx-0 aspect-square">
             <Image
               src="/menu/14.webp"
               alt="Crispy pork belly Khao Soi — Northern Thai coconut curry broth topped with fried egg noodles, pickled mustard greens and red onion"
               fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 45vw"
+              className="object-contain"
+              style={{ filter: 'drop-shadow(0 16px 28px rgba(0,0,0,0.55))' }}
+              sizes="(max-width: 768px) 90vw, 400px"
               priority
             />
           </div>
