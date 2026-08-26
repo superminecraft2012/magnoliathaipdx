@@ -22,6 +22,35 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/menu/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Orphan crawlable files. Netlify serves these at 200 and they duplicate the
+# rendered menu, so they compete with the page that should rank. Left reachable
+# rather than deleted, in case a link to one was ever texted or QR-coded —
+# see the open question in SEO.md.
+[[headers]]
+  for = "/menu/Magnolia_Menu.md"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/menu/*.HEIC"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/thai-magnolia-assets/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[redirects]]
   from = "/order"
   to = "https://www.toasttab.com/local/order/magnoliathaipdx"

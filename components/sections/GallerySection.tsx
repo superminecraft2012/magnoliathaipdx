@@ -27,21 +27,21 @@ const ALL_ITEMS: GalleryItem[] = [
   { id: 'dish-10', src: '/menu/10.webp', alt: 'Garlic Beef & Broccoli with carrots in savory oyster sauce' },
   { id: 'dish-11', src: '/menu/11.webp', alt: 'Pad Thai Shrimp — rice noodles with tiger shrimp, lime and bean sprouts' },
   { id: 'dish-12', src: '/menu/12.webp', alt: 'Sweet Basil Chicken stir-fry with mushrooms, peppers and fresh basil' },
-  { id: 'dish-13', src: '/menu/13.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-14', src: '/menu/14.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-15', src: '/menu/15.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-16', src: '/menu/16.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-17', src: '/menu/17.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-18', src: '/menu/18.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-19', src: '/menu/19.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-20', src: '/menu/20.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-21', src: '/menu/21.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-22', src: '/menu/22.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-23', src: '/menu/23.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-24', src: '/menu/24.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-25', src: '/menu/25.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-26', src: '/menu/26.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
-  { id: 'dish-28', src: '/menu/28.webp', alt: 'Thai dish — Magnolia Thai Restaurant signature recipe' },
+  { id: 'dish-13', src: '/menu/13.webp', alt: 'Grilled beef salad with sliced steak, fresh mint, cilantro, tomato, cucumber and crisp lettuce' },
+  { id: 'dish-14', src: '/menu/14.webp', alt: 'Crispy pork belly Khao Soi — Northern Thai coconut curry broth topped with fried egg noodles, pickled mustard greens and red onion' },
+  { id: 'dish-15', src: '/menu/15.webp', alt: 'Sweet eggplant stir-fry with Thai eggplant, tofu, broccoli, carrot and fresh basil' },
+  { id: 'dish-16', src: '/menu/16.webp', alt: 'Basil tofu stir-fry with broccoli, mushrooms, bell pepper, carrot and Thai basil' },
+  { id: 'dish-17', src: '/menu/17.webp', alt: 'Thai peanut sauce poured over sliced protein with steamed broccoli and carrots' },
+  { id: 'dish-18', src: '/menu/18.webp', alt: 'Tempura Khao Soi — shrimp tempura over Northern Thai curry broth with crispy egg noodles and pickled greens' },
+  { id: 'dish-19', src: '/menu/19.webp', alt: 'Tofu Khao Soi — fried tofu in Northern Thai curry broth with crispy egg noodles, pickled mustard greens and red onion' },
+  { id: 'dish-20', src: '/menu/20.webp', alt: 'Tom Yum — spicy and sour Thai soup with mushrooms, tomato, lemongrass and tofu, served in a hot pot' },
+  { id: 'dish-21', src: '/menu/21.webp', alt: 'Tom Kha — coconut milk soup with mushrooms, tomato, galangal, lemongrass and scallions' },
+  { id: 'dish-22', src: '/menu/22.webp', alt: 'Thai iced coffee served over ice in a fluted glass with milk stirred through' },
+  { id: 'dish-23', src: '/menu/23.webp', alt: 'Fresh mango juice over ice, topped with mango chunks and a sprig of mint' },
+  { id: 'dish-24', src: '/menu/24.webp', alt: 'Thai iced coffee layered with cream over ice in a fluted glass' },
+  { id: 'dish-25', src: '/menu/25.webp', alt: 'Tom Kha coconut soup simmering in a Thai hot pot over an open flame, with tofu, tomato and mushrooms' },
+  { id: 'dish-26', src: '/menu/26.webp', alt: 'Panang curry with tofu, green beans, red bell pepper and kaffir lime leaf in thick coconut curry sauce' },
+  { id: 'dish-28', src: '/menu/28.webp', alt: 'Three Thai drinks side by side — fresh mango juice with mint, iced tea, and Thai iced coffee layered with cream' },
 ]
 
 const TRACKS = [
@@ -191,9 +191,9 @@ export default function GallerySection({ onTabChange }: Props) {
           <p className="text-gold/30 text-[10px] font-sans uppercase tracking-[0.35em] mb-2">
             Milwaukie, Oregon
           </p>
-          <h1 className="font-display text-gold-light text-4xl sm:text-5xl md:text-6xl uppercase tracking-[0.08em] leading-none">
+          <h2 className="font-display text-gold-light text-4xl sm:text-5xl md:text-6xl uppercase tracking-[0.08em] leading-none">
             Gallery
-          </h1>
+          </h2>
           <p className="text-gold/35 text-xs font-sans uppercase tracking-[0.3em] mt-3">
             Hover to pause
           </p>

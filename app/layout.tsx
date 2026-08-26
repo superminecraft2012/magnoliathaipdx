@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Cinzel, Lato } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
-import { structuredData } from '@/lib/structured-data'
+import { SITE_ORIGIN } from '@/lib/site'
 import ClosedJuly4Popup from '@/components/ClosedJuly4Popup'
 
 const cinzel = Cinzel({
@@ -19,6 +19,18 @@ const lato = Lato({
   display: 'swap',
 })
 
+/**
+ * Zoom is deliberately unrestricted.
+ *
+ * Do NOT add `maximumScale` or `userScalable: false` here. Pinch-to-zoom is an
+ * accessibility requirement (WCAG 2.1 SC 1.4.4 Resize Text), and low-vision
+ * readers rely on it. Horizontal containment is handled in globals.css with
+ * `overflow-x: clip`, which clips the *layout* viewport only and leaves
+ * pinch-zoom panning of the *visual* viewport fully intact.
+ *
+ * `viewport-fit` is intentionally left at its default: the tabbed SPA at `/`
+ * is a full-bleed 100dvh layout, and `cover` would push it under the notch.
+ */
 export const viewport: Viewport = {
   themeColor: '#1a1a1a',
   width: 'device-width',
@@ -49,12 +61,12 @@ export const metadata: Metadata = {
   authors: [{ name: 'Magnolia Thai Restaurant' }],
   creator: 'Magnolia Thai Restaurant',
   publisher: 'Magnolia Thai Restaurant',
-  metadataBase: new URL('https://magnoliathai.com'),
+  metadataBase: new URL(SITE_ORIGIN),
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://magnoliathai.com',
+    url: SITE_ORIGIN,
     siteName: 'Magnolia Thai Restaurant',
     title: 'Magnolia Thai Restaurant | Authentic Thai Cuisine | Milwaukie, OR',
     description:
@@ -91,13 +103,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${cinzel.variable} ${lato.variable}`}>
-      <head>
-        {/* Restaurant JSON-LD schema — for Google, AI crawlers, voice search */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </head>
       <body className="antialiased">
         {children}
         <ClosedJuly4Popup />
